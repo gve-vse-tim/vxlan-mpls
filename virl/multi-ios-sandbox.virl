@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<topology xmlns="http://www.cisco.com/VIRL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="0.95" xsi:schemaLocation="http://www.cisco.com/VIRL https://raw.github.com/CiscoVIRL/schema/v0.95/virl.xsd">
+    <extensions>
+        <entry key="management_lxc" type="Boolean">false</entry>  
+        <entry key="management_network" type="String">flat</entry>
+    </extensions>
+    <node name="core1" type="SIMPLE" subtype="IOS XRv 9000" location="430,300" vmFlavor="IOS XRv 9000">
+        <extensions>
+            <entry key="config" type="string">!! IOS XR Configuration version = 6.2.1
+hostname core1
+telnet vrf default ipv4 server max-servers 10
+telnet vrf Mgmt-intf ipv4 server max-servers 10
+domain lookup disable
+username cisco
+ group root-lr
+ group cisco-support
+ secret 5 $1$8XKH$gE1JmJDZy0YQeWZ3ZANMo/
+ password 7 070C285F4D06
+!
+username admin
+ group root-lr
+ group cisco-support
+ password 7 011202095205
+!
+username lab
+ group root-lr
+ group cisco-support
+ password 7 04570A04
+!
+vrf Mgmt-intf
+ address-family ipv4 unicast
+ !
+ address-family ipv6 unicast
+ !
+!
+control-plane
+ management-plane
+  inband
+   interface all
+    allow all
+   !
+  !
+ !
+!
+interface MgmtEth0/RP0/CPU0/0
+ description OOB Management
+ ! Configured on launch
+ vrf Mgmt-intf
+ ipv4 address dhcp
+!
+router static
+ vrf Mgmt-intf
+  address-family ipv4 unicast
+   0.0.0.0/0 {{ gateway }}
+  !
+ !
+!
+!
+ssh server v2
+ssh server vrf Mgmt-intf
+end</entry>
+        </extensions>
+        <interface id="1" name="GigabitEthernet0/0/0/1"/>
+        <interface id="2" name="GigabitEthernet0/0/0/2"/>
+        <interface id="3" name="GigabitEthernet0/0/0/3"/>
+        <interface id="4" name="GigabitEthernet0/0/0/4"/>
+        <interface id="5" name="GigabitEthernet0/0/0/5"/>
+    </node>
+    <node name="core2" type="SIMPLE" subtype="IOS XRv 9000" location="680,300" vmFlavor="IOS XRv 9000">
+        <extensions>
+            <entry key="config" type="string">!! IOS XR Configuration version = 6.2.1
+hostname core2
+telnet vrf default ipv4 server max-servers 10
+telnet vrf Mgmt-intf ipv4 server max-servers 10
+domain lookup disable
+username cisco
+ group root-lr
+ group cisco-support
+ secret 5 $1$8XKH$gE1JmJDZy0YQeWZ3ZANMo/
+ password 7 070C285F4D06
+!
+username admin
+ group root-lr
+ group cisco-support
+ password 7 011202095205
+!
+username lab
+ group root-lr
+ group cisco-support
+ password 7 04570A04
+!
+vrf Mgmt-intf
+ address-family ipv4 unicast
+ !
+ address-family ipv6 unicast
+ !
+!
+control-plane
+ management-plane
+  inband
+   interface all
+    allow all
+   !
+  !
+ !
+!
+interface MgmtEth0/RP0/CPU0/0
+ description OOB Management
+ ! Configured on launch
+ vrf Mgmt-intf
+ ipv4 address dhcp
+!
+router static
+ vrf Mgmt-intf
+  address-family ipv4 unicast
+   0.0.0.0/0 {{ gateway }}
+  !
+ !
+!
+ssh server v2
+ssh server vrf Mgmt-intf
+end</entry>
+        </extensions>
+        <interface id="1" name="GigabitEthernet0/0/0/1"/>
+        <interface id="2" name="GigabitEthernet0/0/0/2"/>
+        <interface id="3" name="GigabitEthernet0/0/0/3"/>
+        <interface id="4" name="GigabitEthernet0/0/0/4"/>
+        <interface id="5" name="GigabitEthernet0/0/0/5"/>
+    </node>
+    <node name="dist3" type="SIMPLE" subtype="NX-OSv 9000" location="430,500">
+        <extensions>
+            <entry key="config" type="string">! NX-OSv Config generated on 2017-12-15 12:31
+license grace-period
+!
+feature telnet
+hostname dist3
+
+username admin password 5 $1$KuOSBsvW$Cy0TSD..gEBGBPjzpDgf51 role network-admin
+username cisco password 5 $1$Nk7ZkwH0$fyiRmMMfIheqE3BqvcL0C1 role network-operator
+username cisco role network-admin
+no password strength-check
+
+vrf context management
+  ip route 0.0.0.0 0.0.0.0 {{ gateway }}
+hardware forwarding unicast trace
+
+interface mgmt0
+  description OOB Management
+  ! Configured on launch
+  no ip address
+  mac-address fa16.3e00.0007
+  no shutdown
+  vrf member management
+
+        </entry>
+        </extensions>
+        <interface id="0" name="Ethernet1/1"/>
+        <interface id="1" name="Ethernet1/2"/>
+        <interface id="2" name="Ethernet1/3"/>
+        <interface id="3" name="Ethernet1/4"/>
+        <interface id="4" name="Ethernet1/5"/>
+        <interface id="5" name="Ethernet1/6"/>
+    </node>
+    <node name="dist4" type="SIMPLE" subtype="NX-OSv 9000" location="680,500">
+        <extensions>
+            <entry key="config" type="string">
+license grace-period
+!
+feature telnet
+hostname dist4
+username admin password 5 $1$KuOSBsvW$Cy0TSD..gEBGBPjzpDgf51 role network-admin
+username cisco password 5 $1$Nk7ZkwH0$fyiRmMMfIheqE3BqvcL0C1 role network-operator
+username cisco role network-admin
+no password strength-check
+
+vrf context management
+  ip route 0.0.0.0 0.0.0.0 {{ gateway }}
+
+interface mgmt0
+  description OOB Management
+  ! Configured on launch
+  no ip address
+  mac-address fa16.3e00.000e
+  no shutdown
+  vrf member management
+        </entry>
+        </extensions>
+        <interface id="0" name="Ethernet1/1"/>
+        <interface id="1" name="Ethernet1/2"/>
+        <interface id="2" name="Ethernet1/3"/>
+        <interface id="3" name="Ethernet1/4"/>
+        <interface id="4" name="Ethernet1/5"/>
+        <interface id="5" name="Ethernet1/6"/>
+    </node>
+    <node name="access5" type="SIMPLE" subtype="NX-OSv 9000" location="430,680">
+        <extensions>
+            <entry key="config" type="string">
+license grace-period
+!
+feature telnet
+hostname access5
+username admin password 5 $1$KuOSBsvW$Cy0TSD..gEBGBPjzpDgf51 role network-admin
+username cisco password 5 $1$Nk7ZkwH0$fyiRmMMfIheqE3BqvcL0C1 role network-operator
+username cisco role network-admin
+no password strength-check
+
+vrf context management
+  ip route 0.0.0.0 0.0.0.0 {{ gateway }}
+
+interface mgmt0
+  description OOB Management
+  ! Configured on launch
+  no ip address
+  mac-address fa16.3e00.0017
+  no shutdown
+  vrf member management
+
+
+        </entry>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+            <entry key="AutoNetkit.IGP" type="String">ospf</entry>
+            <entry key="AutoNetkit.ibgp_role" type="String">Disabled</entry>
+            <entry key="AutoNetkit.ospf_area" type="String">56</entry>
+        </extensions>
+        <interface id="0" name="Ethernet1/1"/>
+        <interface id="2" name="Ethernet1/3"/>
+        <interface id="3" name="Ethernet1/4"/>
+        <interface id="4" name="Ethernet1/5"/>
+        <interface id="5" name="Ethernet1/6"/>
+        <interface id="6" name="Ethernet1/7"/>
+        <interface id="7" name="Ethernet1/8"/>
+    </node>
+    <node name="access6" type="SIMPLE" subtype="NX-OSv 9000" location="680,680">
+        <extensions>
+            <entry key="config" type="string">
+license grace-period
+!
+feature telnet
+hostname access6
+username admin password 5 $1$KuOSBsvW$Cy0TSD..gEBGBPjzpDgf51 role network-admin
+username cisco password 5 $1$Nk7ZkwH0$fyiRmMMfIheqE3BqvcL0C1 role network-operator
+username cisco role network-admin
+no password strength-check
+
+vrf context management
+  ip route 0.0.0.0 0.0.0.0 {{ gateway }}
+
+interface mgmt0
+  description OOB Management
+  ! Configured on launch
+  no ip address
+  mac-address fa16.3e00.0020
+  no shutdown
+  vrf member management
+        </entry>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+            <entry key="AutoNetkit.IGP" type="String">ospf</entry>
+            <entry key="AutoNetkit.ibgp_role" type="String">Disabled</entry>
+            <entry key="AutoNetkit.ospf_area" type="String">56</entry>
+        </extensions>
+        <interface id="0" name="Ethernet1/1"/>
+        <interface id="2" name="Ethernet1/3"/>
+        <interface id="3" name="Ethernet1/4"/>
+        <interface id="4" name="Ethernet1/5"/>
+        <interface id="5" name="Ethernet1/6"/>
+        <interface id="6" name="Ethernet1/7"/>
+        <interface id="7" name="Ethernet1/8"/>
+    </node>
+    <node name="wan9" type="SIMPLE" subtype="IOS XRv 9000" location="551,198" vmFlavor="IOS XRv 9000">
+        <extensions>
+            <entry key="config" type="String">!! IOS XR Configuration version = 6.2.1
+hostname wan9
+telnet vrf default ipv4 server max-servers 10
+telnet vrf Mgmt-intf ipv4 server max-servers 10
+domain lookup disable
+username cisco
+ group root-lr
+ group cisco-support
+ secret 5 $1$8XKH$gE1JmJDZy0YQeWZ3ZANMo/
+ password 7 070C285F4D06
+!
+username admin
+ group root-lr
+ group cisco-support
+ password 7 011202095205
+!
+username lab
+ group root-lr
+ group cisco-support
+ password 7 04570A04
+!
+vrf Mgmt-intf
+ address-family ipv4 unicast
+ !
+ address-family ipv6 unicast
+ !
+!
+control-plane
+ management-plane
+  inband
+   interface all
+    allow all
+   !
+  !
+ !
+!
+interface MgmtEth0/RP0/CPU0/0
+ description OOB Management
+ ! Configured on launch
+ vrf Mgmt-intf
+ ipv4 address dhcp
+!
+router static
+ vrf Mgmt-intf
+  address-family ipv4 unicast
+   0.0.0.0/0 {{ gateway }}
+  !
+ !
+!
+!
+ssh server v2
+ssh server vrf Mgmt-intf
+end</entry>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+            <entry key="AutoNetkit.IGP" type="String">ospf</entry>
+            <entry key="AutoNetkit.ibgp_role" type="String">RR</entry>
+            <entry key="AutoNetkit.RR_cluster" type="String">10</entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/0/0/0"/>
+        <interface id="1" name="GigabitEthernet0/0/0/1"/>
+        <interface id="2" name="GigabitEthernet0/0/0/2"/>
+        <interface id="3" name="GigabitEthernet0/0/0/3"/>
+    </node>
+    <node name="branch10-router10" type="SIMPLE" subtype="CSR1000v" location="551,99">
+        <extensions>
+            <entry key="config" type="string">!
+hostname branch10-router10
+!
+!
+license accept end user agreement
+license boot level premium
+!
+vrf definition Mgmt-intf
+!
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+enable password cisco
+enable secret 4 tnhtc92DXBhelxjYk8LWJrPV36S2i4ntXrpb4RFmfqY
+crypto key generate rsa modulus 1024
+ip ssh server algorithm authentication password
+username cisco privilege 15 secret cisco
+!
+interface GigabitEthernet1
+  description OOB Management
+  vrf forwarding Mgmt-intf
+  ! Configured on launch
+  no ip address
+  cdp enable
+  no shutdown
+!
+ip route vrf Mgmt-intf 0.0.0.0 0.0.0.0 {{ gateway }}
+!
+end</entry>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+            <entry key="AutoNetkit.IGP" type="String">ospf</entry>
+            <entry key="AutoNetkit.ospf_area" type="String">11</entry>
+            <entry key="AutoNetkit.ibgp_role" type="String">RRC</entry>
+            <entry key="AutoNetkit.RR_cluster" type="String">10</entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+    </node>
+    <annotations/>
+    <connection dst="/virl:topology/virl:node[5]/virl:interface[4]" src="/virl:topology/virl:node[6]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[6]/virl:interface[5]" src="/virl:topology/virl:node[5]/virl:interface[5]"/>
+    <connection dst="/virl:topology/virl:node[4]/virl:interface[5]" src="/virl:topology/virl:node[5]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[3]/virl:interface[5]" src="/virl:topology/virl:node[5]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[4]/virl:interface[6]" src="/virl:topology/virl:node[6]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[3]/virl:interface[6]" src="/virl:topology/virl:node[6]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[4]/virl:interface[3]" src="/virl:topology/virl:node[3]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[4]/virl:interface[4]" src="/virl:topology/virl:node[3]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[1]/virl:interface[3]" src="/virl:topology/virl:node[3]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[2]/virl:interface[3]" src="/virl:topology/virl:node[3]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[1]/virl:interface[4]" src="/virl:topology/virl:node[4]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[2]/virl:interface[4]" src="/virl:topology/virl:node[4]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[7]/virl:interface[2]" src="/virl:topology/virl:node[1]/virl:interface[5]"/>
+    <connection dst="/virl:topology/virl:node[2]/virl:interface[5]" src="/virl:topology/virl:node[7]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[8]/virl:interface[1]" src="/virl:topology/virl:node[7]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[2]/virl:interface[1]" src="/virl:topology/virl:node[1]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[2]/virl:interface[2]" src="/virl:topology/virl:node[1]/virl:interface[2]"/>
+</topology>
