@@ -4,51 +4,1610 @@
         <entry key="AutoNetkit.enable_cdp" type="Boolean">true</entry>
         <entry key="AutoNetkit.enable_OnePK" type="Boolean">false</entry>
         <entry key="AutoNetkit.infrastructure_only" type="Boolean">false</entry>
+        <entry key="lxc.host.static_ip" type="String">10.255.0.10</entry>
     </extensions>
-    <node name="ASR-DC-1" type="SIMPLE" subtype="CSR1000v" location="419,218" ipv4="192.168.254.201">
-        <interface id="9" name="GigabitEthernet11"/>
-        <interface id="10" name="GigabitEthernet12"/>
-        <interface id="12" name="GigabitEthernet14"/>
-        <interface id="13" name="GigabitEthernet15"/>
-    </node>
-    <node name="ASR-DC-2" type="SIMPLE" subtype="CSR1000v" location="661,224" ipv4="192.168.254.202">
-        <interface id="9" name="GigabitEthernet11"/>
-        <interface id="10" name="GigabitEthernet12"/>
-        <interface id="12" name="GigabitEthernet14"/>
-        <interface id="13" name="GigabitEthernet15"/>
-    </node>
-    <node name="spine-1" type="SIMPLE" subtype="NX-OSv 9000" location="419,341" ipv4="192.168.254.101">
-        <interface id="0" name="Ethernet1/1"/>
-        <interface id="1" name="Ethernet1/2"/>
-        <interface id="7" name="Ethernet1/8"/>
-        <interface id="8" name="Ethernet1/9"/>
-    </node>
-    <node name="spine-2" type="SIMPLE" subtype="NX-OSv 9000" location="662,344" ipv4="192.168.254.102">
-        <interface id="0" name="Ethernet1/1"/>
-        <interface id="1" name="Ethernet1/2"/>
-        <interface id="7" name="Ethernet1/8"/>
-        <interface id="8" name="Ethernet1/9"/>
-    </node>
-    <node name="leaf-1" type="SIMPLE" subtype="NX-OSv 9000" location="420,494" ipv4="192.168.254.111">
+    <node name="ASR-DC-1" type="SIMPLE" subtype="CSR1000v" location="419,218">
         <extensions>
-            <entry key="AutoNetkit.IGP" type="String">rip-v2</entry>
+            <entry key="config" type="String">!
+! Last configuration change at 14:41:58 UTC Mon Jun 25 2018
+!
+version 16.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname ASR-DC-1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition management
+ description OOB Management Isolation
+ !
+ address-family ipv4
+ exit-address-family
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 92WJOES50VW
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface GigabitEthernet1
+ vrf forwarding management
+ ip address 10.255.0.21 255.255.255.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet2
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet3
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet4
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet5
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet6
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet7
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet8
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet9
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet10
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet11
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet12
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet13
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet14
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet15
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+ip http client source-interface GigabitEthernet1
+ip route vrf management 0.0.0.0 0.0.0.0 10.255.0.1
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+end
+
+</entry>
+            <entry key="static_ip" type="String">10.255.0.21</entry>
+        </extensions>
+        <interface id="9" name="GigabitEthernet11"/>
+        <interface id="10" name="GigabitEthernet12"/>
+        <interface id="12" name="GigabitEthernet14"/>
+        <interface id="13" name="GigabitEthernet15"/>
+    </node>
+    <node name="ASR-DC-2" type="SIMPLE" subtype="CSR1000v" location="661,218">
+        <extensions>
+            <entry key="config" type="String">!
+! Last configuration change at 14:41:58 UTC Mon Jun 25 2018
+!
+version 16.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname ASR-DC-2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition management
+ description OOB Management Isolation
+ !
+ address-family ipv4
+ exit-address-family
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9GCUJ6A2NA8
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface GigabitEthernet1
+ vrf forwarding management
+ ip address 10.255.0.21 255.255.255.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet2
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet3
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet4
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet5
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet6
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet7
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet8
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet9
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet10
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet11
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet12
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet13
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet14
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet15
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+ip http client source-interface GigabitEthernet1
+ip route vrf management 0.0.0.0 0.0.0.0 10.255.0.1
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+end
+
+</entry>
+            <entry key="static_ip" type="String">10.255.0.22</entry>
+        </extensions>
+        <interface id="9" name="GigabitEthernet11"/>
+        <interface id="10" name="GigabitEthernet12"/>
+        <interface id="12" name="GigabitEthernet14"/>
+        <interface id="13" name="GigabitEthernet15"/>
+    </node>
+    <node name="spine-1" type="SIMPLE" subtype="NX-OSv 9000" location="419,341">
+        <extensions>
+            <entry key="config" type="String">!Command: show running-config
+!Time: Mon Jun 25 14:42:00 2018
+
+version 7.0(3)I6(1)
+switchname spine-1
+vdc spine-1 id 1
+  limit-resource vlan minimum 16 maximum 4094
+  limit-resource vrf minimum 2 maximum 4096
+  limit-resource port-channel minimum 0 maximum 511
+  limit-resource u4route-mem minimum 128 maximum 128
+  limit-resource u6route-mem minimum 96 maximum 96
+  limit-resource m4route-mem minimum 58 maximum 58
+  limit-resource m6route-mem minimum 8 maximum 8
+
+feature telnet
+
+no password strength-check
+username admin password 5 $5$OPMOCA$o/F/NOKP8M71tlAel0cNrH7m9E4.LrFEN7JwMsTafUC  role network-admin
+ip domain-lookup
+ip name-server 10.255.0.2 use-vrf management
+no system default switchport
+system default switchport shutdown
+snmp-server user admin network-admin auth md5 0xaab26e99f431f9081188f7de92e44884 priv 0xaab26e99f431f9081188f7de92e44884 localizedkey
+rmon event 1 description FATAL(1) owner PMON@FATAL
+rmon event 2 description CRITICAL(2) owner PMON@CRITICAL
+rmon event 3 description ERROR(3) owner PMON@ERROR
+rmon event 4 description WARNING(4) owner PMON@WARNING
+rmon event 5 description INFORMATION(5) owner PMON@INFO
+
+vlan 1
+
+vrf context management
+  ip route 0.0.0.0/0 10.255.0.1
+
+interface Ethernet1/1
+
+interface Ethernet1/2
+
+interface Ethernet1/3
+
+interface Ethernet1/4
+
+interface Ethernet1/5
+
+interface Ethernet1/6
+
+interface Ethernet1/7
+
+interface Ethernet1/8
+
+interface Ethernet1/9
+
+interface Ethernet1/10
+
+interface Ethernet1/11
+
+interface Ethernet1/12
+
+interface Ethernet1/13
+
+interface Ethernet1/14
+
+interface Ethernet1/15
+
+interface Ethernet1/16
+
+interface Ethernet1/17
+
+interface Ethernet1/18
+
+interface Ethernet1/19
+
+interface Ethernet1/20
+
+interface Ethernet1/21
+
+interface Ethernet1/22
+
+interface Ethernet1/23
+
+interface Ethernet1/24
+
+interface Ethernet1/25
+
+interface Ethernet1/26
+
+interface Ethernet1/27
+
+interface Ethernet1/28
+
+interface Ethernet1/29
+
+interface Ethernet1/30
+
+interface Ethernet1/31
+
+interface Ethernet1/32
+
+interface Ethernet1/33
+
+interface Ethernet1/34
+
+interface Ethernet1/35
+
+interface Ethernet1/36
+
+interface Ethernet1/37
+
+interface Ethernet1/38
+
+interface Ethernet1/39
+
+interface Ethernet1/40
+
+interface Ethernet1/41
+
+interface Ethernet1/42
+
+interface Ethernet1/43
+
+interface Ethernet1/44
+
+interface Ethernet1/45
+
+interface Ethernet1/46
+
+interface Ethernet1/47
+
+interface Ethernet1/48
+
+interface Ethernet1/49
+
+interface Ethernet1/50
+
+interface Ethernet1/51
+
+interface Ethernet1/52
+
+interface Ethernet1/53
+
+interface Ethernet1/54
+
+interface Ethernet1/55
+
+interface Ethernet1/56
+
+interface Ethernet1/57
+
+interface Ethernet1/58
+
+interface Ethernet1/59
+
+interface Ethernet1/60
+
+interface Ethernet1/61
+
+interface Ethernet1/62
+
+interface Ethernet1/63
+
+interface Ethernet1/64
+
+interface mgmt0
+  ip address 10.255.0.101/24
+  vrf member management
+line console
+line vty
+
+</entry>
+            <entry key="static_ip" type="String">10.255.0.101</entry>
         </extensions>
         <interface id="0" name="Ethernet1/1"/>
         <interface id="1" name="Ethernet1/2"/>
         <interface id="7" name="Ethernet1/8"/>
         <interface id="8" name="Ethernet1/9"/>
     </node>
-    <node name="leaf-2" type="SIMPLE" subtype="NX-OSv 9000" location="661,493" ipv4="192.168.254.112">
+    <node name="spine-2" type="SIMPLE" subtype="NX-OSv 9000" location="661,341">
+        <extensions>
+            <entry key="config" type="String">!Command: show running-config
+!Time: Mon Jun 25 14:42:00 2018
+
+version 7.0(3)I6(1)
+switchname spine-2
+vdc spine-2 id 1
+  limit-resource vlan minimum 16 maximum 4094
+  limit-resource vrf minimum 2 maximum 4096
+  limit-resource port-channel minimum 0 maximum 511
+  limit-resource u4route-mem minimum 128 maximum 128
+  limit-resource u6route-mem minimum 96 maximum 96
+  limit-resource m4route-mem minimum 58 maximum 58
+  limit-resource m6route-mem minimum 8 maximum 8
+
+feature telnet
+
+no password strength-check
+username admin password 5 $5$ELNDFF$pzRoirMVHa3NzjH7XdQ8S7jpv1wabdbJ2Li/izfY8P/  role network-admin
+ip domain-lookup
+ip name-server 10.255.0.2 use-vrf management
+no system default switchport
+system default switchport shutdown
+snmp-server user admin network-admin auth md5 0x3c3a564e049d1e429cd2e81f7f03ebfb priv 0x3c3a564e049d1e429cd2e81f7f03ebfb localizedkey
+rmon event 1 description FATAL(1) owner PMON@FATAL
+rmon event 2 description CRITICAL(2) owner PMON@CRITICAL
+rmon event 3 description ERROR(3) owner PMON@ERROR
+rmon event 4 description WARNING(4) owner PMON@WARNING
+rmon event 5 description INFORMATION(5) owner PMON@INFO
+
+vlan 1
+
+vrf context management
+  ip route 0.0.0.0/0 10.255.0.1
+
+interface Ethernet1/1
+
+interface Ethernet1/2
+
+interface Ethernet1/3
+
+interface Ethernet1/4
+
+interface Ethernet1/5
+
+interface Ethernet1/6
+
+interface Ethernet1/7
+
+interface Ethernet1/8
+
+interface Ethernet1/9
+
+interface Ethernet1/10
+
+interface Ethernet1/11
+
+interface Ethernet1/12
+
+interface Ethernet1/13
+
+interface Ethernet1/14
+
+interface Ethernet1/15
+
+interface Ethernet1/16
+
+interface Ethernet1/17
+
+interface Ethernet1/18
+
+interface Ethernet1/19
+
+interface Ethernet1/20
+
+interface Ethernet1/21
+
+interface Ethernet1/22
+
+interface Ethernet1/23
+
+interface Ethernet1/24
+
+interface Ethernet1/25
+
+interface Ethernet1/26
+
+interface Ethernet1/27
+
+interface Ethernet1/28
+
+interface Ethernet1/29
+
+interface Ethernet1/30
+
+interface Ethernet1/31
+
+interface Ethernet1/32
+
+interface Ethernet1/33
+
+interface Ethernet1/34
+
+interface Ethernet1/35
+
+interface Ethernet1/36
+
+interface Ethernet1/37
+
+interface Ethernet1/38
+
+interface Ethernet1/39
+
+interface Ethernet1/40
+
+interface Ethernet1/41
+
+interface Ethernet1/42
+
+interface Ethernet1/43
+
+interface Ethernet1/44
+
+interface Ethernet1/45
+
+interface Ethernet1/46
+
+interface Ethernet1/47
+
+interface Ethernet1/48
+
+interface Ethernet1/49
+
+interface Ethernet1/50
+
+interface Ethernet1/51
+
+interface Ethernet1/52
+
+interface Ethernet1/53
+
+interface Ethernet1/54
+
+interface Ethernet1/55
+
+interface Ethernet1/56
+
+interface Ethernet1/57
+
+interface Ethernet1/58
+
+interface Ethernet1/59
+
+interface Ethernet1/60
+
+interface Ethernet1/61
+
+interface Ethernet1/62
+
+interface Ethernet1/63
+
+interface Ethernet1/64
+
+interface mgmt0
+  ip address 10.255.0.102/24
+  vrf member management
+line console
+line vty
+
+</entry>
+            <entry key="static_ip" type="String">10.255.0.102</entry>
+        </extensions>
         <interface id="0" name="Ethernet1/1"/>
         <interface id="1" name="Ethernet1/2"/>
         <interface id="7" name="Ethernet1/8"/>
         <interface id="8" name="Ethernet1/9"/>
     </node>
-    <node name="ASR-TP-1" type="SIMPLE" subtype="CSR1000v" location="421,112" ipv4="192.168.254.211">
+    <node name="leaf-1" type="SIMPLE" subtype="NX-OSv 9000" location="419,494">
+        <extensions>
+            <entry key="AutoNetkit.IGP" type="String">rip-v2</entry>
+            <entry key="config" type="String">!Command: show running-config
+!Time: Mon Jun 25 14:42:01 2018
+
+version 7.0(3)I6(1)
+switchname leaf-1
+vdc leaf-1 id 1
+  limit-resource vlan minimum 16 maximum 4094
+  limit-resource vrf minimum 2 maximum 4096
+  limit-resource port-channel minimum 0 maximum 511
+  limit-resource u4route-mem minimum 128 maximum 128
+  limit-resource u6route-mem minimum 96 maximum 96
+  limit-resource m4route-mem minimum 58 maximum 58
+  limit-resource m6route-mem minimum 8 maximum 8
+
+feature telnet
+
+no password strength-check
+username admin password 5 $5$HHEFPD$.ZcvQjPry5TaNbjAoFZll8ytOI3mj16wCaJHrtjT0Q4  role network-admin
+ip domain-lookup
+ip name-server 10.255.0.2 use-vrf management
+no system default switchport
+system default switchport shutdown
+snmp-server user admin network-admin auth md5 0xc7f1584c2aa1016bf37a81982b8c0c92 priv 0xc7f1584c2aa1016bf37a81982b8c0c92 localizedkey
+rmon event 1 description FATAL(1) owner PMON@FATAL
+rmon event 2 description CRITICAL(2) owner PMON@CRITICAL
+rmon event 3 description ERROR(3) owner PMON@ERROR
+rmon event 4 description WARNING(4) owner PMON@WARNING
+rmon event 5 description INFORMATION(5) owner PMON@INFO
+
+vlan 1
+
+vrf context management
+  ip route 0.0.0.0/0 10.255.0.1
+
+interface Ethernet1/1
+
+interface Ethernet1/2
+
+interface Ethernet1/3
+
+interface Ethernet1/4
+
+interface Ethernet1/5
+
+interface Ethernet1/6
+
+interface Ethernet1/7
+
+interface Ethernet1/8
+
+interface Ethernet1/9
+
+interface Ethernet1/10
+
+interface Ethernet1/11
+
+interface Ethernet1/12
+
+interface Ethernet1/13
+
+interface Ethernet1/14
+
+interface Ethernet1/15
+
+interface Ethernet1/16
+
+interface Ethernet1/17
+
+interface Ethernet1/18
+
+interface Ethernet1/19
+
+interface Ethernet1/20
+
+interface Ethernet1/21
+
+interface Ethernet1/22
+
+interface Ethernet1/23
+
+interface Ethernet1/24
+
+interface Ethernet1/25
+
+interface Ethernet1/26
+
+interface Ethernet1/27
+
+interface Ethernet1/28
+
+interface Ethernet1/29
+
+interface Ethernet1/30
+
+interface Ethernet1/31
+
+interface Ethernet1/32
+
+interface Ethernet1/33
+
+interface Ethernet1/34
+
+interface Ethernet1/35
+
+interface Ethernet1/36
+
+interface Ethernet1/37
+
+interface Ethernet1/38
+
+interface Ethernet1/39
+
+interface Ethernet1/40
+
+interface Ethernet1/41
+
+interface Ethernet1/42
+
+interface Ethernet1/43
+
+interface Ethernet1/44
+
+interface Ethernet1/45
+
+interface Ethernet1/46
+
+interface Ethernet1/47
+
+interface Ethernet1/48
+
+interface Ethernet1/49
+
+interface Ethernet1/50
+
+interface Ethernet1/51
+
+interface Ethernet1/52
+
+interface Ethernet1/53
+
+interface Ethernet1/54
+
+interface Ethernet1/55
+
+interface Ethernet1/56
+
+interface Ethernet1/57
+
+interface Ethernet1/58
+
+interface Ethernet1/59
+
+interface Ethernet1/60
+
+interface Ethernet1/61
+
+interface Ethernet1/62
+
+interface Ethernet1/63
+
+interface Ethernet1/64
+
+interface mgmt0
+  ip address 10.255.0.201/24
+  vrf member management
+line console
+line vty
+
+</entry>
+            <entry key="static_ip" type="String">10.255.0.201</entry>
+        </extensions>
+        <interface id="0" name="Ethernet1/1"/>
+        <interface id="1" name="Ethernet1/2"/>
+        <interface id="7" name="Ethernet1/8"/>
+        <interface id="8" name="Ethernet1/9"/>
+    </node>
+    <node name="leaf-2" type="SIMPLE" subtype="NX-OSv 9000" location="661,493">
+        <extensions>
+            <entry key="config" type="String">!Command: show running-config
+!Time: Mon Jun 25 14:42:00 2018
+
+version 7.0(3)I6(1)
+switchname leaf-2
+vdc leaf-2 id 1
+  limit-resource vlan minimum 16 maximum 4094
+  limit-resource vrf minimum 2 maximum 4096
+  limit-resource port-channel minimum 0 maximum 511
+  limit-resource u4route-mem minimum 128 maximum 128
+  limit-resource u6route-mem minimum 96 maximum 96
+  limit-resource m4route-mem minimum 58 maximum 58
+  limit-resource m6route-mem minimum 8 maximum 8
+
+feature telnet
+
+no password strength-check
+username admin password 5 $5$LKECDC$B1MOZVoJ1kXQdRK.V0pQIJIggzj0A.GJrE1QS9MEl1A  role network-admin
+ip domain-lookup
+ip name-server 10.255.0.2 use-vrf management
+no system default switchport
+system default switchport shutdown
+snmp-server user admin network-admin auth md5 0xee037aed5ec63a42225c9ee140d095bd priv 0xee037aed5ec63a42225c9ee140d095bd localizedkey
+rmon event 1 description FATAL(1) owner PMON@FATAL
+rmon event 2 description CRITICAL(2) owner PMON@CRITICAL
+rmon event 3 description ERROR(3) owner PMON@ERROR
+rmon event 4 description WARNING(4) owner PMON@WARNING
+rmon event 5 description INFORMATION(5) owner PMON@INFO
+
+vlan 1
+
+vrf context management
+  ip route 0.0.0.0/0 10.255.0.1
+
+interface Ethernet1/1
+
+interface Ethernet1/2
+
+interface Ethernet1/3
+
+interface Ethernet1/4
+
+interface Ethernet1/5
+
+interface Ethernet1/6
+
+interface Ethernet1/7
+
+interface Ethernet1/8
+
+interface Ethernet1/9
+
+interface Ethernet1/10
+
+interface Ethernet1/11
+
+interface Ethernet1/12
+
+interface Ethernet1/13
+
+interface Ethernet1/14
+
+interface Ethernet1/15
+
+interface Ethernet1/16
+
+interface Ethernet1/17
+
+interface Ethernet1/18
+
+interface Ethernet1/19
+
+interface Ethernet1/20
+
+interface Ethernet1/21
+
+interface Ethernet1/22
+
+interface Ethernet1/23
+
+interface Ethernet1/24
+
+interface Ethernet1/25
+
+interface Ethernet1/26
+
+interface Ethernet1/27
+
+interface Ethernet1/28
+
+interface Ethernet1/29
+
+interface Ethernet1/30
+
+interface Ethernet1/31
+
+interface Ethernet1/32
+
+interface Ethernet1/33
+
+interface Ethernet1/34
+
+interface Ethernet1/35
+
+interface Ethernet1/36
+
+interface Ethernet1/37
+
+interface Ethernet1/38
+
+interface Ethernet1/39
+
+interface Ethernet1/40
+
+interface Ethernet1/41
+
+interface Ethernet1/42
+
+interface Ethernet1/43
+
+interface Ethernet1/44
+
+interface Ethernet1/45
+
+interface Ethernet1/46
+
+interface Ethernet1/47
+
+interface Ethernet1/48
+
+interface Ethernet1/49
+
+interface Ethernet1/50
+
+interface Ethernet1/51
+
+interface Ethernet1/52
+
+interface Ethernet1/53
+
+interface Ethernet1/54
+
+interface Ethernet1/55
+
+interface Ethernet1/56
+
+interface Ethernet1/57
+
+interface Ethernet1/58
+
+interface Ethernet1/59
+
+interface Ethernet1/60
+
+interface Ethernet1/61
+
+interface Ethernet1/62
+
+interface Ethernet1/63
+
+interface Ethernet1/64
+
+interface mgmt0
+  ip address 10.255.0.202/24
+  vrf member management
+line console
+line vty
+
+</entry>
+            <entry key="static_ip" type="String">10.255.0.202</entry>
+        </extensions>
+        <interface id="0" name="Ethernet1/1"/>
+        <interface id="1" name="Ethernet1/2"/>
+        <interface id="7" name="Ethernet1/8"/>
+        <interface id="8" name="Ethernet1/9"/>
+    </node>
+    <node name="ASR-TP-1" type="SIMPLE" subtype="CSR1000v" location="421,112">
+        <extensions>
+            <entry key="config" type="String">!
+! Last configuration change at 14:41:58 UTC Mon Jun 25 2018
+!
+version 16.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname ASR-TP-1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition management
+ description OOB Management Isolation
+ !
+ address-family ipv4
+ exit-address-family
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9XV4PMO01O1
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface GigabitEthernet1
+ vrf forwarding management
+ ip address 10.255.0.11 255.255.255.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet2
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet3
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet4
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet5
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet6
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet7
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet8
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet9
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet10
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet11
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet12
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+ip http client source-interface GigabitEthernet1
+ip route vrf management 0.0.0.0 0.0.0.0 10.255.0.1
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+end
+
+</entry>
+            <entry key="static_ip" type="String">10.255.0.11</entry>
+        </extensions>
         <interface id="9" name="GigabitEthernet11"/>
         <interface id="10" name="GigabitEthernet12"/>
     </node>
-    <node name="ASR-TP-2" type="SIMPLE" subtype="CSR1000v" location="660,112" ipv4="192.168.254.212">
+    <node name="ASR-TP-2" type="SIMPLE" subtype="CSR1000v" location="660,112">
+        <extensions>
+            <entry key="config" type="String">!
+! Last configuration change at 14:41:58 UTC Mon Jun 25 2018
+!
+version 16.7
+service timestamps debug datetime msec
+service timestamps log datetime msec
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname ASR-TP-2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition management
+ description OOB Management Isolation
+ !
+ address-family ipv4
+ exit-address-family
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9OFFT6T9V78
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface GigabitEthernet1
+ vrf forwarding management
+ ip address 10.255.0.12 255.255.255.0
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet2
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet3
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet4
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet5
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet6
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet7
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet8
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet9
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet10
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet11
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet12
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+ip http client source-interface GigabitEthernet1
+ip route vrf management 0.0.0.0 0.0.0.0 10.255.0.1
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+end
+
+</entry>
+            <entry key="static_ip" type="String">10.255.0.12</entry>
+        </extensions>
         <interface id="9" name="GigabitEthernet11"/>
         <interface id="10" name="GigabitEthernet12"/>
     </node>
