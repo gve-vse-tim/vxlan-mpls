@@ -4,7 +4,6 @@
         <entry key="AutoNetkit.enable_cdp" type="Boolean">true</entry>
         <entry key="AutoNetkit.enable_OnePK" type="Boolean">false</entry>
         <entry key="AutoNetkit.infrastructure_only" type="Boolean">false</entry>
-        <entry key="lxc.host.static_ip" type="String">10.255.0.10</entry>
     </extensions>
     <node name="ASR-DC-1" type="SIMPLE" subtype="CSR1000v" location="419,218">
         <extensions>
