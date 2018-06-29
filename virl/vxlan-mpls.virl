@@ -4,11 +4,14 @@
         <entry key="AutoNetkit.enable_cdp" type="Boolean">true</entry>
         <entry key="AutoNetkit.enable_OnePK" type="Boolean">false</entry>
         <entry key="AutoNetkit.infrastructure_only" type="Boolean">false</entry>
+        <entry key="management_network" type="String">flat</entry>
+        <entry key="management_lxc" type="Boolean">false</entry>
     </extensions>
     <node name="ASR-DC-1" type="SIMPLE" subtype="CSR1000v" location="419,218">
         <extensions>
+            <entry key="static_ip" type="String">172.16.30.63</entry>
             <entry key="config" type="String">!
-! Last configuration change at 14:41:58 UTC Mon Jun 25 2018
+! Last configuration change at 01:01:53 UTC Fri Jun 29 2018
 !
 version 16.7
 service timestamps debug datetime msec
@@ -29,6 +32,7 @@ vrf definition management
  address-family ipv4
  exit-address-family
 !
+enable secret 5 $1$KnU4$PYH8D3i7buWDjeYzSUCyU0
 !
 no aaa new-model
 !
@@ -62,6 +66,15 @@ multilink bundle-name authenticated
 !
 !
 !
+crypto pki trustpoint TP-self-signed-404364421
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-404364421
+ revocation-check none
+ rsakeypair TP-self-signed-404364421
+!
+!
+crypto pki certificate chain TP-self-signed-404364421
+ certificate self-signed 01 nvram:IOS-Self-Sig#1.cer
 !
 !
 !
@@ -71,8 +84,7 @@ multilink bundle-name authenticated
 !
 !
 !
-!
-license udi pid CSR1000V sn 92WJOES50VW
+license udi pid CSR1000V sn 9VSH4EV7UQZ
 no license smart enable
 diagnostic bootup level minimal
 !
@@ -80,6 +92,7 @@ spanning-tree extend system-id
 !
 !
 !
+username cisco privilege 15 secret 5 $1$W5Nu$foSgQcvRMTTZy9vQpTkHU0
 !
 redundancy
 !
@@ -107,90 +120,104 @@ redundancy
 !
 interface GigabitEthernet1
  vrf forwarding management
- ip address 10.255.0.21 255.255.255.0
+ ip address 172.16.30.63 255.255.255.0
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet2
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet3
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet4
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet5
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet6
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet7
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet8
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet9
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet10
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet11
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet12
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet13
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet14
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet15
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
@@ -198,9 +225,10 @@ interface GigabitEthernet15
 !
 ip forward-protocol nd
 no ip http server
+ip http authentication local
 no ip http secure-server
 ip http client source-interface GigabitEthernet1
-ip route vrf management 0.0.0.0 0.0.0.0 10.255.0.1
+ip route vrf management 0.0.0.0 0.0.0.0 172.16.30.254
 !
 !
 !
@@ -217,7 +245,8 @@ control-plane
 line con 0
  stopbits 1
 line vty 0 4
- login
+ login local
+ transport input telnet ssh
 !
 wsma agent exec
 !
@@ -231,7 +260,6 @@ wsma agent notify
 end
 
 </entry>
-            <entry key="static_ip" type="String">10.255.0.21</entry>
         </extensions>
         <interface id="9" name="GigabitEthernet11"/>
         <interface id="10" name="GigabitEthernet12"/>
@@ -240,8 +268,9 @@ end
     </node>
     <node name="ASR-DC-2" type="SIMPLE" subtype="CSR1000v" location="661,218">
         <extensions>
+            <entry key="static_ip" type="String">172.16.30.64</entry>
             <entry key="config" type="String">!
-! Last configuration change at 14:41:58 UTC Mon Jun 25 2018
+! Last configuration change at 01:03:07 UTC Fri Jun 29 2018
 !
 version 16.7
 service timestamps debug datetime msec
@@ -262,6 +291,7 @@ vrf definition management
  address-family ipv4
  exit-address-family
 !
+enable secret 5 $1$q4tg$DKZQWrPEDKE4VCaRKJb5X/
 !
 no aaa new-model
 !
@@ -295,6 +325,15 @@ multilink bundle-name authenticated
 !
 !
 !
+crypto pki trustpoint TP-self-signed-1194289599
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-1194289599
+ revocation-check none
+ rsakeypair TP-self-signed-1194289599
+!
+!
+crypto pki certificate chain TP-self-signed-1194289599
+ certificate self-signed 01 nvram:IOS-Self-Sig#1.cer
 !
 !
 !
@@ -304,8 +343,7 @@ multilink bundle-name authenticated
 !
 !
 !
-!
-license udi pid CSR1000V sn 9GCUJ6A2NA8
+license udi pid CSR1000V sn 98W8D6AYOB7
 no license smart enable
 diagnostic bootup level minimal
 !
@@ -313,6 +351,7 @@ spanning-tree extend system-id
 !
 !
 !
+username cisco privilege 15 secret 5 $1$2108$XR2FRirxQ92IHI7.TbPD1/
 !
 redundancy
 !
@@ -340,90 +379,104 @@ redundancy
 !
 interface GigabitEthernet1
  vrf forwarding management
- ip address 10.255.0.21 255.255.255.0
+ ip address 172.16.30.64 255.255.255.0
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet2
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet3
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet4
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet5
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet6
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet7
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet8
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet9
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet10
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet11
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet12
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet13
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet14
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet15
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
@@ -431,9 +484,10 @@ interface GigabitEthernet15
 !
 ip forward-protocol nd
 no ip http server
+ip http authentication local
 no ip http secure-server
 ip http client source-interface GigabitEthernet1
-ip route vrf management 0.0.0.0 0.0.0.0 10.255.0.1
+ip route vrf management 0.0.0.0 0.0.0.0 172.16.30.254
 !
 !
 !
@@ -450,7 +504,8 @@ control-plane
 line con 0
  stopbits 1
 line vty 0 4
- login
+ login local
+ transport input telnet ssh
 !
 wsma agent exec
 !
@@ -464,7 +519,6 @@ wsma agent notify
 end
 
 </entry>
-            <entry key="static_ip" type="String">10.255.0.22</entry>
         </extensions>
         <interface id="9" name="GigabitEthernet11"/>
         <interface id="10" name="GigabitEthernet12"/>
@@ -505,7 +559,7 @@ rmon event 5 description INFORMATION(5) owner PMON@INFO
 vlan 1
 
 vrf context management
-  ip route 0.0.0.0/0 10.255.0.1
+  ip route 0.0.0.0/0 172.16.30.254
 
 interface Ethernet1/1
 
@@ -636,13 +690,13 @@ interface Ethernet1/63
 interface Ethernet1/64
 
 interface mgmt0
-  ip address 10.255.0.101/24
+  ip address 172.16.30.65/24
   vrf member management
 line console
 line vty
 
 </entry>
-            <entry key="static_ip" type="String">10.255.0.101</entry>
+            <entry key="static_ip" type="String">172.16.30.65</entry>
         </extensions>
         <interface id="0" name="Ethernet1/1"/>
         <interface id="1" name="Ethernet1/2"/>
@@ -683,7 +737,7 @@ rmon event 5 description INFORMATION(5) owner PMON@INFO
 vlan 1
 
 vrf context management
-  ip route 0.0.0.0/0 10.255.0.1
+  ip route 0.0.0.0/0 172.16.30.254
 
 interface Ethernet1/1
 
@@ -814,13 +868,13 @@ interface Ethernet1/63
 interface Ethernet1/64
 
 interface mgmt0
-  ip address 10.255.0.102/24
+  ip address 172.16.30.66/24
   vrf member management
 line console
 line vty
 
 </entry>
-            <entry key="static_ip" type="String">10.255.0.102</entry>
+            <entry key="static_ip" type="String">172.16.30.66</entry>
         </extensions>
         <interface id="0" name="Ethernet1/1"/>
         <interface id="1" name="Ethernet1/2"/>
@@ -862,7 +916,7 @@ rmon event 5 description INFORMATION(5) owner PMON@INFO
 vlan 1
 
 vrf context management
-  ip route 0.0.0.0/0 10.255.0.1
+  ip route 0.0.0.0/0 172.16.30.254
 
 interface Ethernet1/1
 
@@ -993,13 +1047,13 @@ interface Ethernet1/63
 interface Ethernet1/64
 
 interface mgmt0
-  ip address 10.255.0.201/24
+  ip address 172.16.30.67/24
   vrf member management
 line console
 line vty
 
 </entry>
-            <entry key="static_ip" type="String">10.255.0.201</entry>
+            <entry key="static_ip" type="String">172.16.30.67</entry>
         </extensions>
         <interface id="0" name="Ethernet1/1"/>
         <interface id="1" name="Ethernet1/2"/>
@@ -1040,7 +1094,7 @@ rmon event 5 description INFORMATION(5) owner PMON@INFO
 vlan 1
 
 vrf context management
-  ip route 0.0.0.0/0 10.255.0.1
+  ip route 0.0.0.0/0 172.16.30.254
 
 interface Ethernet1/1
 
@@ -1171,13 +1225,13 @@ interface Ethernet1/63
 interface Ethernet1/64
 
 interface mgmt0
-  ip address 10.255.0.202/24
+  ip address 172.16.30.68/24
   vrf member management
 line console
 line vty
 
 </entry>
-            <entry key="static_ip" type="String">10.255.0.202</entry>
+            <entry key="static_ip" type="String">172.16.30.68</entry>
         </extensions>
         <interface id="0" name="Ethernet1/1"/>
         <interface id="1" name="Ethernet1/2"/>
@@ -1186,8 +1240,9 @@ line vty
     </node>
     <node name="ASR-TP-1" type="SIMPLE" subtype="CSR1000v" location="421,112">
         <extensions>
+            <entry key="static_ip" type="String">172.16.30.61</entry>
             <entry key="config" type="String">!
-! Last configuration change at 14:41:58 UTC Mon Jun 25 2018
+! Last configuration change at 00:58:36 UTC Fri Jun 29 2018
 !
 version 16.7
 service timestamps debug datetime msec
@@ -1208,6 +1263,7 @@ vrf definition management
  address-family ipv4
  exit-address-family
 !
+enable secret 5 $1$fFKc$ZOSUxlu63baEEE/rzeFkx1
 !
 no aaa new-model
 !
@@ -1241,6 +1297,15 @@ multilink bundle-name authenticated
 !
 !
 !
+crypto pki trustpoint TP-self-signed-3952461121
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3952461121
+ revocation-check none
+ rsakeypair TP-self-signed-3952461121
+!
+!
+crypto pki certificate chain TP-self-signed-3952461121
+ certificate self-signed 01 nvram:IOS-Self-Sig#1.cer
 !
 !
 !
@@ -1250,8 +1315,7 @@ multilink bundle-name authenticated
 !
 !
 !
-!
-license udi pid CSR1000V sn 9XV4PMO01O1
+license udi pid CSR1000V sn 9R0EBO8D0JN
 no license smart enable
 diagnostic bootup level minimal
 !
@@ -1259,6 +1323,7 @@ spanning-tree extend system-id
 !
 !
 !
+username cisco privilege 15 secret 5 $1$SgMS$h99SUBB2gmh2gACtaBvFP/
 !
 redundancy
 !
@@ -1286,72 +1351,83 @@ redundancy
 !
 interface GigabitEthernet1
  vrf forwarding management
- ip address 10.255.0.11 255.255.255.0
+ ip address 172.16.30.61 255.255.255.0
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet2
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet3
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet4
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet5
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet6
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet7
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet8
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet9
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet10
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet11
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet12
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
@@ -1359,9 +1435,10 @@ interface GigabitEthernet12
 !
 ip forward-protocol nd
 no ip http server
+ip http authentication local
 no ip http secure-server
 ip http client source-interface GigabitEthernet1
-ip route vrf management 0.0.0.0 0.0.0.0 10.255.0.1
+ip route vrf management 0.0.0.0 0.0.0.0 172.16.30.254
 !
 !
 !
@@ -1378,7 +1455,8 @@ control-plane
 line con 0
  stopbits 1
 line vty 0 4
- login
+ login local
+ transport input telnet ssh
 !
 wsma agent exec
 !
@@ -1392,15 +1470,15 @@ wsma agent notify
 end
 
 </entry>
-            <entry key="static_ip" type="String">10.255.0.11</entry>
         </extensions>
         <interface id="9" name="GigabitEthernet11"/>
         <interface id="10" name="GigabitEthernet12"/>
     </node>
     <node name="ASR-TP-2" type="SIMPLE" subtype="CSR1000v" location="660,112">
         <extensions>
+            <entry key="static_ip" type="String">172.16.30.62</entry>
             <entry key="config" type="String">!
-! Last configuration change at 14:41:58 UTC Mon Jun 25 2018
+! Last configuration change at 01:00:23 UTC Fri Jun 29 2018
 !
 version 16.7
 service timestamps debug datetime msec
@@ -1421,6 +1499,7 @@ vrf definition management
  address-family ipv4
  exit-address-family
 !
+enable secret 5 $1$phvy$MYJfOyaYIgAbY.P7lkRsi0
 !
 no aaa new-model
 !
@@ -1454,6 +1533,15 @@ multilink bundle-name authenticated
 !
 !
 !
+crypto pki trustpoint TP-self-signed-2777681533
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2777681533
+ revocation-check none
+ rsakeypair TP-self-signed-2777681533
+!
+!
+crypto pki certificate chain TP-self-signed-2777681533
+ certificate self-signed 01 nvram:IOS-Self-Sig#1.cer
 !
 !
 !
@@ -1463,8 +1551,7 @@ multilink bundle-name authenticated
 !
 !
 !
-!
-license udi pid CSR1000V sn 9OFFT6T9V78
+license udi pid CSR1000V sn 9X38NKLQV3G
 no license smart enable
 diagnostic bootup level minimal
 !
@@ -1472,6 +1559,7 @@ spanning-tree extend system-id
 !
 !
 !
+username cisco privilege 15 secret 5 $1$G4bZ$JYGCXs1KjheIpyoPcsgJ00
 !
 redundancy
 !
@@ -1499,72 +1587,83 @@ redundancy
 !
 interface GigabitEthernet1
  vrf forwarding management
- ip address 10.255.0.12 255.255.255.0
+ ip address 172.16.30.62 255.255.255.0
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet2
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet3
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet4
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet5
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet6
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet7
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet8
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet9
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet10
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet11
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet12
+ no ip address
  shutdown
  negotiation auto
  no mop enabled
@@ -1572,9 +1671,10 @@ interface GigabitEthernet12
 !
 ip forward-protocol nd
 no ip http server
+ip http authentication local
 no ip http secure-server
 ip http client source-interface GigabitEthernet1
-ip route vrf management 0.0.0.0 0.0.0.0 10.255.0.1
+ip route vrf management 0.0.0.0 0.0.0.0 172.16.30.254
 !
 !
 !
@@ -1591,7 +1691,8 @@ control-plane
 line con 0
  stopbits 1
 line vty 0 4
- login
+ login local
+ transport input telnet ssh
 !
 wsma agent exec
 !
@@ -1605,7 +1706,6 @@ wsma agent notify
 end
 
 </entry>
-            <entry key="static_ip" type="String">10.255.0.12</entry>
         </extensions>
         <interface id="9" name="GigabitEthernet11"/>
         <interface id="10" name="GigabitEthernet12"/>
