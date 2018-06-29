@@ -1,0 +1,31 @@
+---
+
+- hosts: spine
+  roles:
+    - role: common
+      tags: common
+    - role: spine
+      tags: spine
+    - role: backup
+      tags: backup
+
+- hosts: leaf
+  roles:
+    - role: common
+      tags: common
+    - role: leaf
+      tags: leaf
+    - role: tenant
+      tags: tenant
+    - role: backup
+      tags: backup
+
+- hosts: borderPE
+  roles:
+    - role: common
+      tags: common
+    - role: borderPE
+      tags: borderPE
+    - role: backup
+      tags: backup
+

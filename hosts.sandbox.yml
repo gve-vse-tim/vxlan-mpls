@@ -1,0 +1,101 @@
+all:
+
+  vars:
+    ansible_python_interpreter: /usr/bin/env python
+    ansible_connection: network_cli
+
+  children:
+    site:
+      children:
+        borderPE:
+          hosts:
+            ASR-DC-1:
+              ansible_host: 172.16.30.63
+              ansible_network_os: ios
+              ansible_user: cisco
+              ansible_ssh_pass: cisco
+              ansible_become: yes
+              ansible_become_method: enable
+              ansible_become_pass: cisco
+              provider:
+                username: cisco
+                password: cisco
+                become_pass: cisco
+                become: yes
+                port: 22
+                timeout: 20
+                host: 172.16.30.63
+            ASR-DC-2:
+              ansible_host: 172.16.30.64
+              ansible_network_os: ios
+              ansible_user: cisco
+              ansible_ssh_pass: cisco
+              ansible_become: yes
+              ansible_become_method: enable
+              ansible_become_pass: cisco
+              provider:
+                username: cisco
+                password: cisco
+                auth_pass: cisco
+                authorize: yes
+                port: 22
+                timeout: 20
+                host: 172.16.30.64
+        remotePE:
+          hosts:
+            ASR-TP-1:
+              ansible_host: 172.16.30.61
+              ansible_network_os: ios
+              ansible_user: cisco
+              ansible_ssh_pass: cisco
+              ansible_become: yes
+              ansible_become_method: enable
+              ansible_become_pass: cisco
+              provider:
+                username: cisco
+                password: cisco
+                auth_pass: cisco
+                authorize: yes
+                port: 22
+                timeout: 20
+                host: 172.16.30.61
+            ASR-TP-2:
+              ansible_host: 172.16.30.62
+              ansible_network_os: ios
+              ansible_user: cisco
+              ansible_ssh_pass: cisco
+              ansible_become: yes
+              ansible_become_method: enable
+              ansible_become_pass: cisco
+              provider:
+                username: cisco
+                password: cisco
+                auth_pass: cisco
+                authorize: yes
+                port: 22
+                timeout: 20
+                host: 172.16.30.62
+        spine:
+          hosts:
+            spine-1:
+              ansible_host: 172.16.30.65
+              ansible_network_os: nxos
+              ansible_user: admin
+              ansible_ssh_pass: admin
+            spine-2:
+              ansible_host: 172.16.30.66
+              ansible_network_os: nxos
+              ansible_user: admin
+              ansible_ssh_pass: admin
+        leaf:
+          hosts:
+            leaf-1:
+              ansible_host: 172.16.30.67
+              ansible_network_os: nxos
+              ansible_user: admin
+              ansible_ssh_pass: admin
+            leaf-2:
+              ansible_host: 172.16.30.68
+              ansible_network_os: nxos
+              ansible_user: admin
+              ansible_ssh_pass: admin

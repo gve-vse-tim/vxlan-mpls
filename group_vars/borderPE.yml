@@ -1,0 +1,31 @@
+---
+
+ospf_process_id: 1
+ospf_area: 0
+
+bgp_as_number: 65500
+
+eigrp_process_id: MPLS_VPNV4
+eigrp_as_number: 1
+
+bgp_neighbors:
+  - remote_as: 65000
+    neighbor: 192.168.1.1
+    update_source: Loopback0
+    afi: l2vpn
+    safi: evpn
+  - remote_as: 65000
+    neighbor: 192.168.1.2
+    update_source: Loopback0
+    afi: l2vpn
+    safi: evpn
+  - remote_as: 65500
+    neighbor: 192.168.3.21
+    update_source: Loopback0
+    afi: vpnv4
+    safi: unicast
+  - remote_as: 65500
+    neighbor: 192.168.3.22
+    update_source: Loopback0
+    afi: vpnv4
+    safi: unicast

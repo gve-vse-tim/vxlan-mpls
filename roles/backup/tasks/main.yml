@@ -1,0 +1,8 @@
+
+- name : (NX-OS) Backup Tasks
+  import_tasks: nxos.yml
+  when: ansible_network_os == "nxos"
+
+- name : (IOS) Backup Tasks 
+  import_tasks: ios.yml
+  when: ansible_network_os == "ios"

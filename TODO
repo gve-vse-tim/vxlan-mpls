@@ -1,0 +1,10 @@
+
+Ansible Development Tasks
+ - nxos_interface_ospf
+   - Add network parameter with valid network type values (point-to-point)
+
+ - IOS equivalents of nxos_* modules
+ - IOS modules for VPNV4
+ - IOS modules for EVPN
+ - IOS modules for VXLAN
+

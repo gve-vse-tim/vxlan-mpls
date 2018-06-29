@@ -1,0 +1,3 @@
+- name: (NXOS) Save Configuration If Modified
+  nxos_config:
+    save_when: modified

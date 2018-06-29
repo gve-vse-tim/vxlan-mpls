@@ -1,0 +1,3 @@
+- name: (IOS) Save Configuration If Modified
+  ios_config:
+    save_when: modified

@@ -1,0 +1,8 @@
+
+- name : (IOS) Set Switch Hostname
+  ios_config:
+    lines: hostname {{ inventory_hostname }}
+
+- name : (IOS) Enable SCP Server
+  ios_config:
+    lines: ip scp server enable

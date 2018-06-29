@@ -1,0 +1,80 @@
+- name: Create VLANs with L2VNI
+  nxos_vlan:
+    name: "{{ item.vlan_name }}"
+    vlan_id: "{{ item.vlan_id }}"
+    mapped_vni: "{{ item.vni_id }}"
+    state: present
+  with_items: 
+  - "{{ vlan_l2vni }}"
+
+- name: Add L2VNIs to EVPN
+  nxos_evpn_vni:
+    vni: "{{ item.vni_id }}"
+    route_distinguisher: "{{ item.rd }}"
+    route_target_import: "{{ item.rt_import }}"
+    route_target_export: "{{ item.rt_export }}"
+    state: present
+  with_items: 
+  - "{{ vlan_l2vni }}"
+
+- name: Define global Anycast Gateway MAC
+  nxos_overlay_global:
+    anycast_gateway_mac: "{{ anycast_gateway_mac }}"
+
+- name: Create VLAN SVIs
+  nxos_interface: 
+    name: "vlan{{ item.vlan_id }}"
+    description: "{{ item.vrf }}-vlan{{ item.vlan_id }}"
+    admin_state: up
+    fabric_forwarding_anycast_gateway: true
+    mode: layer3
+  with_items:
+  - "{{ vlan_l2vni }}"
+
+- name: Assign Address VLAN SVIs
+  nxos_l3_interface:
+    name: "vlan{{ item.vlan_id }}"
+    ipv4: "{{ item.svi_addr }}/{{ item.svi_mask }}"
+    state: present
+  with_items: 
+  - "{{ vlan_l2vni }}"
+
+- name: Bind VLAN SVI to a VRF
+  nxos_vrf_interface:
+    vrf: "{{ item.vrf }}"
+    interface: "vlan{{ item.vlan_id }}"
+    state: present
+  with_items: 
+  - "{{ vlan_l2vni }}"
+
+- name: Add L2VNI to VTEP
+  nxos_vxlan_vtep_vni:
+    interface: nve1
+    vni: "{{ item.vni_id }}"
+    suppress_arp: "{{ item.suppress_arp }}"
+    assoc_vrf: no
+    state: present
+  with_items: 
+  - "{{ vlan_l2vni }}"
+
+### Following options are mutually exclusive so need to handle them
+### special.  Current playbook assumes multicast and no ingress 
+### replication. 
+
+- name: Ensure Ingress Replication Disabled
+  nxos_vxlan_vtep_vni:
+    interface: nve1
+    vni: "{{ item.vni_id }}"
+    ingress_replication: bgp
+    state: absent
+  with_items: 
+  - "{{ vlan_l2vni }}"
+
+- name: Add Multicast to L2VNI VTEP Config
+  nxos_vxlan_vtep_vni:
+    interface: nve1
+    vni: "{{ item.vni_id }}"
+    multicast_group: "{{ item.mcast_grp }}"
+    state: present
+  with_items: 
+  - "{{ vlan_l2vni }}"

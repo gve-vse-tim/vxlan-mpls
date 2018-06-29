@@ -1,0 +1,16 @@
+---
+
+ospf_process_id: Underlay
+ospf_area: 0
+
+asn: 65000
+
+bgp_neighbors:
+- remote_as: 65000
+  neighbor: 192.168.1.1
+  update_source: Loopback0
+- remote_as: 65000
+  neighbor: 192.168.1.2
+  update_source: Loopback0
+
+rp_address: 192.168.0.100

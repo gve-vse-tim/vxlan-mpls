@@ -1,0 +1,70 @@
+---
+
+anycast_gateway_mac: 0002.0002.0002
+
+vrf_l3vni:
+ - name: evpn-tenant-1
+   afi: ipv4
+   safi: unicast
+   vni_id: 300001
+   vlan_id: 3001
+   rd: auto
+   rt_import: auto
+   rt_export: auto
+ - name: evpn-tenant-2
+   afi: ipv4
+   safi: unicast
+   vni_id: 300002
+   vlan_id: 3002
+   rd: auto
+   rt_import: auto
+   rt_export: auto
+
+vlan_l2vni:
+ - vlan_id: 101
+   vlan_name: vlan-101
+   vrf: evpn-tenant-1
+   vni_id: 200101
+   svi_addr: 10.0.0.1
+   svi_mask: 24
+   mcast_grp: 239.0.0.1
+   rd: auto
+   rt_import: auto
+   rt_export: auto
+   suppress_arp: yes
+ - vlan_id: 102
+   vlan_name: vlan-102
+   vrf: evpn-tenant-2
+   vni_id: 200102
+   svi_addr: 10.0.1.1
+   svi_mask: 24
+   mcast_grp: 239.0.0.2
+   rd: auto
+   rt_import: auto
+   rt_export: auto
+   suppress_arp: yes
+ - vlan_id: 1101
+   vlan_name: vlan-1101
+   vrf: evpn-tenant-1
+   vni_id: 201101
+   svi_addr: 10.4.0.1
+   svi_mask: 24
+   mcast_grp: 239.4.0.1
+   rd: auto
+   rt_import: auto
+   rt_export: auto
+   suppress_arp: yes   
+ - vlan_id: 1102
+   vlan_name: vlan-1102
+   vrf: evpn-tenant-2
+   vni_id: 201102
+   svi_addr: 10.4.1.1
+   svi_mask: 24
+   mcast_grp: 239.4.0.2
+   rd: auto
+   rt_import: auto
+   rt_export: auto
+   suppress_arp: yes   
+
+
+

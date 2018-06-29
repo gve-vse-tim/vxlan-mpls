@@ -1,0 +1,8 @@
+
+- name : (NX-OS) Common Tasks
+  import_tasks: nxos.yml
+  when: ansible_network_os == "nxos"
+
+- name : (IOS) Common Tasks 
+  import_tasks: ios.yml
+  when: ansible_network_os == "ios"

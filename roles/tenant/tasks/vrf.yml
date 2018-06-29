@@ -1,0 +1,63 @@
+- name: Create VRF Context with RD
+  nxos_vrf:
+    vrf: "{{ item.name }}"
+    vni: "{{ item.vni_id }}"
+    rd: "{{ item.rd }}"
+    state: present
+  with_items: "{{ vrf_l3vni }}"
+
+- name: Assign AFI and RTs to VRF Context
+  nxos_vrf_af:
+    vrf: "{{ item.name }}"
+    afi: "{{ item.afi }}"
+    route_target_both_auto_evpn: true
+    state: present
+  with_items: "{{ vrf_l3vni }}"
+
+- name: Create L3VNI VLAN for each VRF
+  nxos_vlan:
+    name: "L3VNI-VLAN-{{ item.name }}"
+    vlan_id: "{{ item.vlan_id }}"
+    mapped_vni: "{{ item.vni_id }}"
+    state: present
+  with_items: 
+  - "{{ vrf_l3vni }}"
+
+- name: Create L3VNI SVI for each VRF
+  nxos_interface:
+    interface: "vlan{{ item.vlan_id }}"
+    description: "L3VNI-SVI-{{ item.name }}"
+    ip_forward: enable
+    admin_state: up
+    state: present
+  with_items: 
+  - "{{ vrf_l3vni }}"
+
+- name: Bind L3VNI SVI to each VRF
+  nxos_vrf_interface:
+    interface: "vlan{{ item.vlan_id }}"
+    vrf: "{{ item.name }}"
+    state: present
+  with_items:
+  - "{{ vrf_l3vni }}"
+
+- name: Add VRF to BGP EVPN
+  nxos_bgp_af:
+    asn: "{{ asn }}"
+    vrf: "{{ item.name }}"
+    afi: "{{ item.afi }}"
+    safi: "{{ item.safi }}"
+    advertise_l2vpn_evpn: "true"
+    state: present
+  with_items: 
+  - "{{ vrf_l3vni }}"
+
+- name: Add L3VNI to VTEP Interface
+  nxos_vxlan_vtep_vni:
+    interface: nve1
+    vni: "{{ item.vni_id }}"
+    assoc_vrf: yes
+    state: present
+  with_items: 
+  - "{{ vrf_l3vni }}"
+

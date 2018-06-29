@@ -1,0 +1,9 @@
+
+- name : Underlay interface and routing configuration 
+  import_tasks: underlay.yml
+
+- name : VXLAN fabric interface and control plane configuration
+  import_tasks: vxlan.yml
+
+- name : MPLS transport interface and control plane configuration
+  import_tasks: mpls.yml

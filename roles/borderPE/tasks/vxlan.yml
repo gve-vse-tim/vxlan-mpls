@@ -1,0 +1,65 @@
+
+- name : Create eBGP peers for VXLAN fabric
+  ios_config:
+    lines:
+      - "neighbor {{ item.neighbor }} remote-as {{ item.remote_as }}"
+      - "neighbor {{ item.neighbor }} ebgp-multihop 3"
+      - "neighbor {{ item.neighbor }} update-source {{ item.update_source }}"
+    parents:
+      - "router bgp {{ bgp_as_number }}"
+  with_items:
+    - "{{ bgp_neighbors }}"
+  when: 
+    - item.afi == "l2vpn"
+    - item.safi == "evpn"
+
+- name : Create L2VPN EVPN Address Family
+  ios_config:
+    lines:
+      - "address-family l2vpn evpn"
+    parents:
+      - "router bgp {{ bgp_as_number }}"
+
+- name : Import VPNV4 Routes Into EVPN
+  ios_config:
+    lines:
+      - "import vpnv4 unicast"
+    parents:
+      - "router bgp {{ bgp_as_number }}"
+      - "address-family l2vpn evpn"
+
+- name : Enable Both Communities for all L2VPN EVPN Neighbors
+  ios_config:
+    lines:
+      - "neighbor {{ item.neighbor }} activate"
+      - "neighbor {{ item.neighbor }} send-community both"
+    parents:
+      - "router bgp {{ bgp_as_number }}"
+      - "address-family l2vpn evpn"
+  with_items:
+    - "{{ bgp_neighbors }}"
+  when: 
+    - item.afi == "l2vpn"
+    - item.safi == "evpn"
+
+- name : Configure the VXLAN UDP Port Value
+  ios_config:
+    lines:
+      - "vxlan udp port 0xBEEF"
+
+- name : Create the NVE Interface
+  ios_interface:
+    name: nve1
+    state: up
+
+- name : Configure NVE Interface
+  ios_config:
+    lines:
+      - "no ip address"
+      - "source-interface {{ item.interface }}"
+      - "host-reachability protocol bgp"
+    parents:
+      - "interface nve1"
+  with_items:
+    - "{{ loopbacks }}"
+  when: item.transport == "vxlan"
