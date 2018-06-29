@@ -1,0 +1,24 @@
+---
+
+router_id: 192.168.3.21
+
+# lo0 - MPLS/EVPN BGP Peering
+loopbacks:
+  - interface: loopback0
+    addr: 192.168.3.21
+    mask: 32
+    protocol: eigrp
+    transport: mpls
+
+# Links to MPLS borderPE-1 (Gi11) and borderPE-2 (Gi12)
+underlay_interfaces:
+  - interface: GigabitEthernet11
+    addr: 192.168.211.2
+    mask: 30
+    protocol: eigrp
+    transport: mpls
+  - interface: GigabitEthernet12
+    addr: 192.168.221.2
+    mask: 30
+    protocol: eigrp
+    transport: mpls
