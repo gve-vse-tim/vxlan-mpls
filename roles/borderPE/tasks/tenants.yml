@@ -14,6 +14,7 @@
       - "route-target import {{ item.rt_import }} stitching"
       - "route-target export {{ item.rt_export }} stitching"
     parents:
+      - "vrf definition {{ item.name }}""
       - "address-family {{ item.afi }} "
   with_items:
     - "{{ vrf_l3vni }}"
