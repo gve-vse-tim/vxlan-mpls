@@ -50,7 +50,7 @@
 - name : Create the NVE Interface
   ios_interface:
     name: nve1
-    state: up
+    state: present
 
 - name : Configure NVE Interface
   ios_config:
