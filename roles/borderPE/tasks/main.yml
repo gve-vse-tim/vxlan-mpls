@@ -1,9 +1,12 @@
 
 - name : Underlay interface and routing configuration 
   import_tasks: underlay.yml
+  tags: borderPE_underlay
 
 - name : VXLAN fabric interface and control plane configuration
   import_tasks: vxlan.yml
+  tags: borderPE_vxlan
 
 - name : MPLS transport interface and control plane configuration
   import_tasks: mpls.yml
+  tags: borderPE_mpls
