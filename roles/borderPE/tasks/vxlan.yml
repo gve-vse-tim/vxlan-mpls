@@ -63,3 +63,9 @@
   with_items:
     - "{{ loopbacks }}"
   when: item.transport == "vxlan"
+
+- name : Change ECMP Hashing Algorithm to Include Layer 4 Ports
+  ios_config:
+    lines:
+      - "ip cef load-sharing algorithm include-ports"
+
