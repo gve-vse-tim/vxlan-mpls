@@ -51,7 +51,6 @@
   nxos_vxlan_vtep_vni:
     interface: nve1
     vni: "{{ item.vni_id }}"
-    suppress_arp: "{{ item.suppress_arp }}"
     assoc_vrf: no
     state: present
   with_items: 
@@ -70,11 +69,12 @@
   with_items: 
   - "{{ vlan_l2vni }}"
 
-- name: Add Multicast to L2VNI VTEP Config
+- name: Add Multicast and Arp Suppression to L2VNI VTEP Config
   nxos_vxlan_vtep_vni:
     interface: nve1
     vni: "{{ item.vni_id }}"
     multicast_group: "{{ item.mcast_grp }}"
+    suppress_arp: "{{ item.suppress_arp }}"
     state: present
   with_items: 
   - "{{ vlan_l2vni }}"
