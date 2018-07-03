@@ -9,16 +9,16 @@ vrf_l3vni:
    vni_id: 300001
    vlan_id: 3001
    rd: auto
-   rt_import: auto
-   rt_export: auto
+   rt_import: "{{ vxlan_asn }}:3001"
+   rt_export: "{{ vxlan_asn }}:3001"
  - name: evpn-tenant-2
    afi: ipv4
    safi: unicast
    vni_id: 300002
    vlan_id: 3002
    rd: auto
-   rt_import: auto
-   rt_export: auto
+   rt_import: "{{ vxlan_asn }}:3002"
+   rt_export: "{{ vxlan_asn }}:3002"
 
 vlan_l2vni:
  - vlan_id: 101
@@ -29,8 +29,8 @@ vlan_l2vni:
    svi_mask: 24
    mcast_grp: 239.0.0.1
    rd: auto
-   rt_import: auto
-   rt_export: auto
+   rt_import: "{{ vxlan_asn }}:101"
+   rt_export: "{{ vxlan_asn }}:101"
    suppress_arp: yes
  - vlan_id: 102
    vlan_name: vlan-102
@@ -40,8 +40,8 @@ vlan_l2vni:
    svi_mask: 24
    mcast_grp: 239.0.0.2
    rd: auto
-   rt_import: auto
-   rt_export: auto
+   rt_import: "{{ vxlan_asn }}:102"
+   rt_export: "{{ vxlan_asn }}:102"
    suppress_arp: yes
  - vlan_id: 1101
    vlan_name: vlan-1101
@@ -51,8 +51,8 @@ vlan_l2vni:
    svi_mask: 24
    mcast_grp: 239.4.0.1
    rd: auto
-   rt_import: auto
-   rt_export: auto
+   rt_import: "{{ vxlan_asn }}:1101"
+   rt_export: "{{ vxlan_asn }}:1101"
    suppress_arp: yes   
  - vlan_id: 1102
    vlan_name: vlan-1102
@@ -62,8 +62,8 @@ vlan_l2vni:
    svi_mask: 24
    mcast_grp: 239.4.0.2
    rd: auto
-   rt_import: auto
-   rt_export: auto
+   rt_import: "{{ vxlan_asn }}:1102"
+   rt_export: "{{ vxlan_asn }}:1102"
    suppress_arp: yes   
 
 
