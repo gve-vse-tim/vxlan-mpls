@@ -1,2 +1,7 @@
-- import_tasks: vrf.yml
-- import_tasks: vlan.yml
+- name : "(NX-OS) Tenant L3 Tasks"
+  import_tasks: vrf.yml
+  tags: tenantVRF
+- name : "(NX-OS) Tenant L2 Tasks"
+  import_tasks: vlan.yml
+  tags: tenantVLAN
+
