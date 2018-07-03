@@ -546,7 +546,7 @@ feature telnet
 no password strength-check
 username admin password 5 $5$OPMOCA$o/F/NOKP8M71tlAel0cNrH7m9E4.LrFEN7JwMsTafUC  role network-admin
 ip domain-lookup
-ip name-server 10.255.0.2 use-vrf management
+ip name-server 172.16.30.50 use-vrf management
 no system default switchport
 system default switchport shutdown
 snmp-server user admin network-admin auth md5 0xaab26e99f431f9081188f7de92e44884 priv 0xaab26e99f431f9081188f7de92e44884 localizedkey
@@ -724,7 +724,7 @@ feature telnet
 no password strength-check
 username admin password 5 $5$ELNDFF$pzRoirMVHa3NzjH7XdQ8S7jpv1wabdbJ2Li/izfY8P/  role network-admin
 ip domain-lookup
-ip name-server 10.255.0.2 use-vrf management
+ip name-server 172.16.30.50 use-vrf management
 no system default switchport
 system default switchport shutdown
 snmp-server user admin network-admin auth md5 0x3c3a564e049d1e429cd2e81f7f03ebfb priv 0x3c3a564e049d1e429cd2e81f7f03ebfb localizedkey
@@ -883,7 +883,6 @@ line vty
     </node>
     <node name="leaf-1" type="SIMPLE" subtype="NX-OSv 9000" location="419,494">
         <extensions>
-            <entry key="AutoNetkit.IGP" type="String">rip-v2</entry>
             <entry key="config" type="String">!Command: show running-config
 !Time: Mon Jun 25 14:42:01 2018
 
@@ -903,7 +902,7 @@ feature telnet
 no password strength-check
 username admin password 5 $5$HHEFPD$.ZcvQjPry5TaNbjAoFZll8ytOI3mj16wCaJHrtjT0Q4  role network-admin
 ip domain-lookup
-ip name-server 10.255.0.2 use-vrf management
+ip name-server 172.16.30.50 use-vrf management
 no system default switchport
 system default switchport shutdown
 snmp-server user admin network-admin auth md5 0xc7f1584c2aa1016bf37a81982b8c0c92 priv 0xc7f1584c2aa1016bf37a81982b8c0c92 localizedkey
@@ -1081,7 +1080,7 @@ feature telnet
 no password strength-check
 username admin password 5 $5$LKECDC$B1MOZVoJ1kXQdRK.V0pQIJIggzj0A.GJrE1QS9MEl1A  role network-admin
 ip domain-lookup
-ip name-server 10.255.0.2 use-vrf management
+ip name-server 172.16.30.50 use-vrf management
 no system default switchport
 system default switchport shutdown
 snmp-server user admin network-admin auth md5 0xee037aed5ec63a42225c9ee140d095bd priv 0xee037aed5ec63a42225c9ee140d095bd localizedkey
