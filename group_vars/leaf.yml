@@ -3,7 +3,7 @@
 ospf_process_id: Underlay
 ospf_area: 0
 
-asn: 65000
+vxlan_asn: 65000
 
 bgp_neighbors:
 - remote_as: 65000

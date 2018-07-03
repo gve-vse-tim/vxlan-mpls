@@ -43,7 +43,7 @@
 
 - name: Add VRF to BGP EVPN
   nxos_bgp_af:
-    asn: "{{ asn }}"
+    asn: "{{ vxlan_asn }}"
     vrf: "{{ item.name }}"
     afi: "{{ item.afi }}"
     safi: "{{ item.safi }}"

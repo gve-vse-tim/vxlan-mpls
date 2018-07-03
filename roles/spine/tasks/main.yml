@@ -76,13 +76,13 @@
 
 - name: CONFIGURE BGP ASN AND ROUTER ID
   nxos_bgp:
-    asn: "{{ asn }}"
+    asn: "{{ vxlan_asn }}"
     router_id: "{{ router_id }}"
     state: present
 
 - name: CONFIGURE BGP NEIGHBORS
   nxos_bgp_neighbor:
-    asn: "{{ asn }}"
+    asn: "{{ vxlan_asn }}"
     neighbor: "{{ item.neighbor }}"
     remote_as: "{{ item.remote_as }}"
     update_source: "{{ item.update_source }}"
@@ -91,7 +91,7 @@
 
 - name: CONFIGURE L2VPN EVPN ADDRESS FAMILY FOR BGP NEIGHBORS
   nxos_bgp_neighbor_af:
-    asn: "{{ asn }}"
+    asn: "{{ vxlan_asn }}"
     neighbor: "{{ item.neighbor }}"
     afi: l2vpn
     safi: evpn
