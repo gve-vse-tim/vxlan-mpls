@@ -1,0 +1,8 @@
+- name : "Create Tenant VRFs"
+  ios_vrf:
+    name: "{{ item.name }}"
+    rd: "{{ router_id }}"
+    state: present
+  with_items:
+    - "{{ vrf_l3vni }}"
+  

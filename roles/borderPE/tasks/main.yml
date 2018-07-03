@@ -10,3 +10,7 @@
 - name : MPLS transport interface and control plane configuration
   import_tasks: mpls.yml
   tags: borderPE_mpls
+
+- name : VRF Tenant configuration
+  import_tasks: tenants.yml
+  tags: borderPE_tenants
