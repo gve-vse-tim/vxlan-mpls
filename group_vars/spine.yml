@@ -3,8 +3,6 @@
 ospf_process_id: Underlay
 ospf_area: 0
 
-vxlan_asn: 65000
-
 # Use loopback1 IP address (same on all spines)
 rp_address: 192.168.0.100
 

@@ -3,8 +3,6 @@
 ospf_process_id: Underlay
 ospf_area: 0
 
-vxlan_asn: 65000
-
 bgp_neighbors:
 - remote_as: 65000
   neighbor: 192.168.1.1

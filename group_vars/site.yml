@@ -2,6 +2,8 @@
 
 anycast_gateway_mac: 0002.0002.0002
 
+vxlan_asn: 65000
+
 vrf_l3vni:
  - name: evpn-tenant-1
    afi: ipv4
