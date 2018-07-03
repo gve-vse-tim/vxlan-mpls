@@ -3,6 +3,15 @@
   ios_config:
     lines: hostname {{ inventory_hostname }}
 
+- name : (IOS) Enable Local Authentication
+  ios_config:
+    lines:
+      - "aaa new-model"
+      - "aaa authentication login default local"
+      - "aaa authorization exec default local"
+
+# Assumes functional SSH service from base IOS config
 - name : (IOS) Enable SCP Server
   ios_config:
-    lines: ip scp server enable
+    lines:
+      - "ip scp server enable"
