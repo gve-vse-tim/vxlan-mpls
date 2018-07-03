@@ -42,6 +42,8 @@ no aaa new-model
 !
 !
 !
+ip domain name virl.sandbox.local
+crypto key generate rsa modulus 2048
 !
 !
 !
@@ -230,6 +232,8 @@ no ip http secure-server
 ip http client source-interface GigabitEthernet1
 ip route vrf management 0.0.0.0 0.0.0.0 172.16.30.254
 !
+ip ssh time-out 30
+ip ssh version 2
 !
 !
 !
@@ -301,6 +305,8 @@ no aaa new-model
 !
 !
 !
+ip domain name virl.sandbox.local
+crypto key generate rsa modulus 2048
 !
 !
 !
@@ -489,6 +495,8 @@ no ip http secure-server
 ip http client source-interface GigabitEthernet1
 ip route vrf management 0.0.0.0 0.0.0.0 172.16.30.254
 !
+ip ssh time-out 30
+ip ssh version 2
 !
 !
 !
@@ -1272,6 +1280,8 @@ no aaa new-model
 !
 !
 !
+ip domain name virl.sandbox.local
+crypto key generate rsa modulus 2048
 !
 !
 !
@@ -1439,6 +1449,8 @@ no ip http secure-server
 ip http client source-interface GigabitEthernet1
 ip route vrf management 0.0.0.0 0.0.0.0 172.16.30.254
 !
+ip ssh time-out 30
+ip ssh version 2
 !
 !
 !
@@ -1508,6 +1520,8 @@ no aaa new-model
 !
 !
 !
+ip domain name virl.sandbox.local
+crypto key generate rsa modulus 2048
 !
 !
 !
@@ -1676,6 +1690,8 @@ ip http client source-interface GigabitEthernet1
 ip route vrf management 0.0.0.0 0.0.0.0 172.16.30.254
 !
 !
+ip ssh time-out 30
+ip ssh version 2
 !
 !
 !
