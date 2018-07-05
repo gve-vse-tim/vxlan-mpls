@@ -1953,7 +1953,6 @@ no ip http secure-server
 ip http client source-interface GigabitEthernet1
 ip route vrf management 0.0.0.0 0.0.0.0 172.16.30.254
 !
-!
 ip ssh time-out 30
 ip ssh version 2
 !
@@ -2133,8 +2132,13 @@ boot-start-marker
 boot-end-marker
 !
 !
+vrf definition management
+ description OOB Management Isolation
+ !
+ address-family ipv4
+ exit-address-family
+!
 enable secret 5 $1$fh1Z$DslQvgIVaDVh8q1Kxn2530
-enable password cisco
 !
 no aaa new-model
 !
@@ -2144,6 +2148,8 @@ no aaa new-model
 !
 !
 !
+ip domain name virl.sandbox.local
+crypto key generate rsa modulus 2048
 !
 !
 !
@@ -2221,6 +2227,7 @@ redundancy
 !
 !
 interface GigabitEthernet1
+ vrf forwarding management
  ip address 172.16.30.81 255.255.255.0
  negotiation auto
  no mop enabled
@@ -2266,7 +2273,10 @@ ip http server
 ip http authentication local
 ip http secure-server
 ip http client source-interface GigabitEthernet1
+ip route vrf management 0.0.0.0 0.0.0.0 172.16.30.254
 !
+ip ssh time-out 30
+ip ssh version 2
 !
 !
 !
@@ -2282,8 +2292,8 @@ control-plane
 line con 0
  stopbits 1
 line vty 0 4
- password cisco
- login
+ login local
+ transport input telnet ssh
 !
 wsma agent exec
 !
@@ -2294,9 +2304,6 @@ wsma agent filesys
 wsma agent notify
 !
 !
-!
-pnp profile pnp_cco_profile
- transport https ipv4 72.163.8.46 port 443
 end
 
 </entry>
@@ -2324,8 +2331,13 @@ boot-start-marker
 boot-end-marker
 !
 !
+vrf definition management
+ description OOB Management Isolation
+ !
+ address-family ipv4
+ exit-address-family
+!
 enable secret 5 $1$4RCd$ZW/UXD.HILupuZgNNG5IZ.
-enable password cisco
 !
 no aaa new-model
 !
@@ -2335,6 +2347,8 @@ no aaa new-model
 !
 !
 !
+ip domain name virl.sandbox.local
+crypto key generate rsa modulus 2048
 !
 !
 !
@@ -2412,6 +2426,7 @@ redundancy
 !
 !
 interface GigabitEthernet1
+ vrf forwarding management
  ip address 172.16.30.82 255.255.255.0
  negotiation auto
  no mop enabled
@@ -2457,7 +2472,10 @@ ip http server
 ip http authentication local
 ip http secure-server
 ip http client source-interface GigabitEthernet1
+ip route vrf management 0.0.0.0 0.0.0.0 172.16.30.254
 !
+ip ssh time-out 30
+ip ssh version 2
 !
 !
 !
@@ -2473,8 +2491,8 @@ control-plane
 line con 0
  stopbits 1
 line vty 0 4
- password cisco
- login
+ login local
+ transport input telnet ssh
 !
 wsma agent exec
 !
@@ -2485,9 +2503,6 @@ wsma agent filesys
 wsma agent notify
 !
 !
-!
-pnp profile pnp_cco_profile
- transport https ipv4 72.163.8.46 port 443
 end
 
 </entry>
