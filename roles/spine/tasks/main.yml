@@ -72,6 +72,7 @@
     interface: "{{ item.interface }}"
     sparse: true
     state: present
+  when: item.role != "borderPE"
   with_items: "{{ underlay_interfaces }}"
 
 - name: CONFIGURE BGP ASN AND ROUTER ID
