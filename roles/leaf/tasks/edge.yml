@@ -2,7 +2,7 @@
   nxos_interface:
     interface: "{{ item.interface }}"
     mode: "{{ item.mode }}"
-    mtu: {{ item.mtu }}
+    mtu: "{{ item.mtu }}"
     admin_state: up
     state: present
   with_items: 
