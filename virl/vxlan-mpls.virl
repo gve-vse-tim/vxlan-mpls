@@ -1260,6 +1260,7 @@ boot nxos bootflash:nxos.7.0.3.I6.1.bin
         <interface id="0" name="Ethernet1/1"/>
         <interface id="1" name="Ethernet1/2"/>
         <interface id="4" name="Ethernet1/5"/>
+        <interface id="5" name="Ethernet1/6"/>
         <interface id="7" name="Ethernet1/8"/>
         <interface id="8" name="Ethernet1/9"/>
     </node>
@@ -1504,6 +1505,7 @@ boot nxos bootflash:nxos.7.0.3.I6.1.bin
         <interface id="0" name="Ethernet1/1"/>
         <interface id="1" name="Ethernet1/2"/>
         <interface id="4" name="Ethernet1/5"/>
+        <interface id="5" name="Ethernet1/6"/>
         <interface id="7" name="Ethernet1/8"/>
         <interface id="8" name="Ethernet1/9"/>
     </node>
@@ -2045,11 +2047,14 @@ write_files:
   content: |-
     #!/bin/sh
     ifconfig eth1 up 10.0.0.2 netmask 255.255.255.0
-    route add -net 10.0.0.0/8 gw 10.0.0.1 dev eth1
+    route add -net 10.4.0.0/24 gw 10.0.0.1 dev eth1
+    ifconfig eth2 up 10.0.1.2 netmask 255.255.255.0
+    route add -net 10.4.1.0/24 gw 10.0.1.1 dev eth2
     exit 0
 </entry>
         </extensions>
         <interface id="0" name="eth1"/>
+        <interface id="1" name="eth2"/>
     </node>
     <node name="server-2" type="SIMPLE" subtype="server" location="675,737">
         <extensions>
@@ -2105,12 +2110,15 @@ write_files:
   permissions: '0755'
   content: |-
     #!/bin/sh
-    ifconfig eth1 up 10.0.1.2 netmask 255.255.255.0
-    route add -net 10.0.0.0/8 gw 10.0.1.1 dev eth1
+    ifconfig eth1 up 10.4.0.2 netmask 255.255.255.0
+    route add -net 10.0.0.0/24 gw 10.4.0.1 dev eth1
+    ifconfig eth2 up 10.4.1.2 netmask 255.255.255.0
+    route add -net 10.0.1.0/24 gw 10.4.1.1 dev eth2
     exit 0
 </entry>
         </extensions>
         <interface id="0" name="eth1"/>
+        <interface id="1" name="eth2"/>
     </node>
     <node name="remoteCE-1" type="SIMPLE" subtype="CSR1000v" location="500,161">
         <extensions>
@@ -2515,8 +2523,8 @@ end
     <connection dst="/virl:topology/virl:node[6]/virl:interface[1]" src="/virl:topology/virl:node[3]/virl:interface[2]"/>
     <connection dst="/virl:topology/virl:node[5]/virl:interface[2]" src="/virl:topology/virl:node[4]/virl:interface[1]"/>
     <connection dst="/virl:topology/virl:node[6]/virl:interface[2]" src="/virl:topology/virl:node[4]/virl:interface[2]"/>
-    <connection dst="/virl:topology/virl:node[6]/virl:interface[4]" src="/virl:topology/virl:node[5]/virl:interface[4]"/>
     <connection dst="/virl:topology/virl:node[6]/virl:interface[5]" src="/virl:topology/virl:node[5]/virl:interface[5]"/>
+    <connection dst="/virl:topology/virl:node[6]/virl:interface[6]" src="/virl:topology/virl:node[5]/virl:interface[6]"/>
     <connection dst="/virl:topology/virl:node[1]/virl:interface[3]" src="/virl:topology/virl:node[3]/virl:interface[3]"/>
     <connection dst="/virl:topology/virl:node[2]/virl:interface[3]" src="/virl:topology/virl:node[3]/virl:interface[4]"/>
     <connection dst="/virl:topology/virl:node[1]/virl:interface[4]" src="/virl:topology/virl:node[4]/virl:interface[3]"/>
@@ -2531,4 +2539,6 @@ end
     <connection dst="/virl:topology/virl:node[12]/virl:interface[2]" src="/virl:topology/virl:node[8]/virl:interface[2]"/>
     <connection dst="/virl:topology/virl:node[12]/virl:interface[1]" src="/virl:topology/virl:node[7]/virl:interface[2]"/>
     <connection dst="/virl:topology/virl:node[8]/virl:interface[1]" src="/virl:topology/virl:node[11]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[6]/virl:interface[4]" src="/virl:topology/virl:node[10]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[5]/virl:interface[4]" src="/virl:topology/virl:node[9]/virl:interface[2]"/>
 </topology>
