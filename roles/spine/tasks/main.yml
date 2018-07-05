@@ -118,7 +118,7 @@
       - "ebgp-multihop 3"
     parents:
       - "router bgp {{ vxlan_asn }}"
-      - "neighbor {{ item.neigbor }}"
+      - "neighbor {{ item.neighbor }}"
   when: item.type == 'ebgp'
   with_items:
     - "{{ bgp_neighbors }}"
@@ -141,7 +141,7 @@
       - "route-map set-next-hop-unchanged out"
     parents:
       - "router bgp {{ vxlan_asn }}"
-      - "neighbor {{ item.neigbor }}"
+      - "neighbor {{ item.neighbor }}"
       - "address-family l2vpn evpn"
   when: item.type == 'ebgp'
   with_items:
