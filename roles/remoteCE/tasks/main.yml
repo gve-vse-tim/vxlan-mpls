@@ -1,0 +1,5 @@
+
+- name : Underlay interface and routing configuration 
+  import_tasks: underlay.yml
+  tags: remoteCE_underlay
+

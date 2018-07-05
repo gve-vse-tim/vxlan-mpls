@@ -1,0 +1,53 @@
+
+- name : Create iBGP peers for MPLS network
+  ios_config:
+    lines:
+      - "neighbor {{ item.neighbor }} remote-as {{ item.remote_as }}"
+      - "neighbor {{ item.neighbor }} update-source {{ item.update_source }}"
+    parents:
+      - "router bgp {{ bgp_as_number }}"
+  with_items:
+    - "{{ bgp_neighbors }}"
+  when: 
+    - item.afi == "vpnv4"
+    - item.safi == "unicast"
+
+- name : Create VPNV4 Unicast Address Family
+  ios_config:
+    lines:
+      - "address-family vpnv4 unicast"
+    parents:
+      - "router bgp {{ bgp_as_number }}"
+
+- name : Import EVPN Routes Into VPNV4
+  ios_config:
+    lines:
+      - "import l2vpn evpn"
+    parents:
+      - "router bgp {{ bgp_as_number }}"
+      - "address-family vpnv4 unicast"
+
+- name : Enable Both Communities for all L2VPN EVPN Neighbors
+  ios_config:
+    lines:
+      - "neighbor {{ item.neighbor }} activate"
+      - "neighbor {{ item.neighbor }} send-community extended"
+      - "neighbor {{ item.neighbor }} next-hop-self all"
+    parents:
+      - "router bgp {{ bgp_as_number }}"
+      - "address-family vpnv4 unicast"
+  with_items:
+    - "{{ bgp_neighbors }}"
+  when: 
+    - item.afi == "vpnv4"
+    - item.safi == "unicast"
+
+- name : Configure MPLS transport on interfaces
+  ios_config:
+    lines:
+      - "mpls ip"
+    parents:
+      - "interface {{ item.interface }}"
+  with_items:
+    - "{{ underlay_interfaces }}"
+  when: item.transport == "mpls"

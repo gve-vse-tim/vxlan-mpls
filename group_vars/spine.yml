@@ -16,15 +16,17 @@ bgp_neighbors:
   - remote_as: 65000
     neighbor: 192.168.2.1
     update_source: Loopback0
+    type: ibgp
   - remote_as: 65000
     neighbor: 192.168.2.2
     update_source: Loopback0
-
-# BorderPE peering
-ebgp_neighbors:
+    type: ibgp
+  # BorderPE peering
   - remote_as: 65500
     neighbor: 192.168.2.11
     update_source: Loopback0
+    type: ebgp
   - remote_as: 65500
     neighbor: 192.168.2.12
     update_source: Loopback0
+    type: ebgp

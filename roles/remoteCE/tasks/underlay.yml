@@ -1,0 +1,87 @@
+# Tasks related to setting up fabric underlay reachability
+# - point-to-point routed links
+# - routing protocol for underlay reachability
+
+- name : Underlay P2P Interfaces - Physical Settings
+  ios_interface:
+    name: "{{ item.interface }}"
+    mtu: 9216
+    state: up
+    delay: 5
+  with_items: 
+    - "{{ underlay_interfaces }}"
+
+- name : Underlay P2P Interfaces - IP Addressing
+  ios_l3_interface:
+    name: "{{ item.interface }}"
+    ipv4: "{{ item.addr }}/{{ item.mask }}"
+    state: present
+  with_items:
+    - "{{ underlay_interfaces }}"
+
+- name : Create Loopback Interfaces
+  ios_interface:
+    name: "{{ item.interface }}"
+    state: up
+  with_items:
+    - "{{ loopbacks }}"
+
+- name : Loopback Interfaces - IP Addressing
+  ios_l3_interface:
+    name: "{{ item.interface }}"
+    ipv4: "{{ item.addr }}/{{ item.mask }}"
+    state: present
+  with_items:
+    - "{{ loopbacks }}"
+
+###
+###  This is where Ansible and IOS/IOS-XE experiences serious FAIL
+###
+
+# MPLS Underlay IGP (EIGRP for simplicity given this design)
+- name : Define EIGRP process
+  ios_config:
+    lines:
+      - "router eigrp {{ eigrp_process_id }}"
+
+- name : Create IPv4 AF in EIGRP 
+  ios_config:
+    lines:
+      - "address-family ipv4 unicast autonomous-system {{ eigrp_as_number }}"
+    parents:
+      - "router eigrp {{ eigrp_process_id }}"
+
+- name : Configure Router ID in EIGRP IPv4 AF
+  ios_config:
+    lines:
+      - "eigrp router-id {{ router_id }}"
+    parents:
+      - "router eigrp {{ eigrp_process_id }}"
+      - "address-family ipv4 unicast autonomous-system {{ eigrp_as_number }}"
+
+- name : Configure Network Interfaces in EIGRP IPv4 AF
+  ios_config:
+    lines:
+      - "network {{ item.addr }} 0.0.0.0"
+    parents:
+      - "router eigrp {{ eigrp_process_id }}"
+      - "address-family ipv4 unicast autonomous-system {{ eigrp_as_number }}"
+  with_items:
+    - "{{ loopbacks }}"
+    - "{{ underlay_interfaces }}"
+  when: item.protocol == "eigrp"
+
+# Configure the parent BGP process for both control plane/transport mechanisms
+- name : Create the BGP control plane process
+  ios_config:
+    lines:
+      - "router bgp {{ bgp_as_number }}"
+
+- name : Configure the BGP control plane process
+  ios_config:
+    lines:
+      - "bgp router-id {{ router_id }}"
+      - "bgp log-neighbor-changes"
+      - "no bgp default ipv4-unicast"
+    parents:
+      - "router bgp {{ bgp_as_number }}"
