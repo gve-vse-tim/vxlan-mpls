@@ -21,4 +21,9 @@ edge_interfaces:
     mode: layer2
     type: access
     vlan: 101
-    mtu: 9216
+    mtu: 1500
+  - interface: Ethernet1/6
+    mode: layer2
+    type: access
+    vlan: 102
+    mtu: 1500
