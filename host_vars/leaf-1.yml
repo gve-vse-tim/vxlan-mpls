@@ -16,3 +16,9 @@ underlay_interfaces:
 # Configure leaf local VLAN/L2VNI and VRF/L3VNI fabric info
 
 # Configure specific interface configurations
+edge_interfaces:
+  - interface: Ethernet1/5
+    mode: layer2
+    type: access
+    vlan: 101
+    mtu: 9216

@@ -106,7 +106,6 @@
     source_interface: Loopback0
     state: present
 
-
-
-
-
+- name: (NXOS) Configure edge interfaces for end host connectivity
+  import_tasks: edge.yml
+  tags: leaf_edge
