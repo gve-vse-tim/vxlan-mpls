@@ -19,6 +19,15 @@
   with_items:
     - "{{ underlay_interfaces }}"
 
+- name : Underlay P2P Interfaces - Enable CDP
+  ios_config:
+    lines:
+      - "cdp enable"
+    parents:
+      - "interface {{ item.interface }}"
+  with_items:
+    - "{{ underlay_interfaces }}"
+
 - name : Create Loopback Interfaces
   ios_interface:
     name: "{{ item.interface }}"
