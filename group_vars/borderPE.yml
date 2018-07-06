@@ -21,11 +21,11 @@ bgp_neighbors:
     safi: evpn
   - remote_as: 65500
     neighbor: 192.168.3.21
-    update_source: Loopback0
+    update_source: Loopback2
     afi: vpnv4
     safi: unicast
   - remote_as: 65500
     neighbor: 192.168.3.22
-    update_source: Loopback0
+    update_source: Loopback2
     afi: vpnv4
     safi: unicast

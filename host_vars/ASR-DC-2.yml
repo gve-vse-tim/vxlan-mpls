@@ -2,19 +2,25 @@
 
 router_id: 192.168.3.12
 
-# lo0 - MPLS/EVPN BGP Peering
+# lo0 - EVPN BGP Peering
 # lo1 - VTEP functions
+# lo2 - MPLS BGP Peering
 loopbacks:
   - interface: loopback0
     addr: 192.168.3.12
     mask: 32
-    protocol: eigrp
-    transport: mpls
+    protocol: ospf
+    transport: vxlan
   - interface: loopback1
     addr: 192.168.0.12
     mask: 32
     protocol: ospf
     transport: vxlan
+  - interface: loopback2
+    addr: 192.168.3.112
+    mask: 32
+    protocol: eigrp
+    transport: mpls
 
 # Links to VXLAN spine-1 (Gi14) and spine-2 (Gi15)
 # Links to MPLS remotePE-1 (Gi11) and remotePE-2 (Gi12)
