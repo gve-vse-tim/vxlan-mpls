@@ -533,7 +533,7 @@ end
         <interface id="12" name="GigabitEthernet14"/>
         <interface id="13" name="GigabitEthernet15"/>
     </node>
-    <node name="spine-1" type="SIMPLE" subtype="NX-OSv 9000 8GB" location="434,484">
+    <node name="spine-1" type="SIMPLE" subtype="NX-OSv 9000" location="434,484" vmFlavor="NX-OSv 9000-1 [3cc2af6d-704a-4fb4-b656-87a6e673a42a]">
         <extensions>
             <entry key="config" type="String">!Command: show running-config
 !Time: Mon Jun 25 14:42:00 2018
@@ -776,7 +776,7 @@ boot nxos bootflash:nxos.7.0.3.I6.1.bin
         <interface id="7" name="Ethernet1/8"/>
         <interface id="8" name="Ethernet1/9"/>
     </node>
-    <node name="spine-2" type="SIMPLE" subtype="NX-OSv 9000 8GB" location="676,484">
+    <node name="spine-2" type="SIMPLE" subtype="NX-OSv 9000" location="676,484" vmFlavor="NX-OSv 9000-1 [3cc2af6d-704a-4fb4-b656-87a6e673a42a]">
         <extensions>
             <entry key="config" type="String">!Command: show running-config
 !Time: Mon Jun 25 14:42:00 2018
@@ -1019,7 +1019,7 @@ boot nxos bootflash:nxos.7.0.3.I6.1.bin
         <interface id="7" name="Ethernet1/8"/>
         <interface id="8" name="Ethernet1/9"/>
     </node>
-    <node name="leaf-1" type="SIMPLE" subtype="NX-OSv 9000 8GB" location="434,637">
+    <node name="leaf-1" type="SIMPLE" subtype="NX-OSv 9000" location="434,637" vmFlavor="NX-OSv 9000-1 [3cc2af6d-704a-4fb4-b656-87a6e673a42a]">
         <extensions>
             <entry key="config" type="String">!Command: show running-config
 !Time: Mon Jun 25 14:42:01 2018
@@ -1264,7 +1264,7 @@ boot nxos bootflash:nxos.7.0.3.I6.1.bin
         <interface id="7" name="Ethernet1/8"/>
         <interface id="8" name="Ethernet1/9"/>
     </node>
-    <node name="leaf-2" type="SIMPLE" subtype="NX-OSv 9000 8GB" location="676,636">
+    <node name="leaf-2" type="SIMPLE" subtype="NX-OSv 9000" location="676,636" vmFlavor="NX-OSv 9000-1 [3cc2af6d-704a-4fb4-b656-87a6e673a42a]">
         <extensions>
             <entry key="config" type="String">!Command: show running-config
 !Time: Mon Jun 25 14:42:00 2018
