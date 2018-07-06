@@ -7,7 +7,7 @@
     name: "{{ item.interface }}"
     mtu: 9216
     state: up
-    delay: 5
+    delay: 30
   with_items: 
     - "{{ underlay_interfaces }}"
 
