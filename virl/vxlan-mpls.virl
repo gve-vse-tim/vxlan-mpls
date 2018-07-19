@@ -2062,7 +2062,7 @@ write_files:
             <entry key="config" type="String">#cloud-config
 bootcmd:
 - ln -s -t /etc/rc.d /etc/rc.local
-hostname: server-1
+hostname: server-2
 manage_etc_hosts: true
 runcmd:
 - start ttyS0
