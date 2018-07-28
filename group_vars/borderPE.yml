@@ -3,8 +3,6 @@
 ospf_process_id: 1
 ospf_area: 0
 
-bgp_as_number: 65500
-
 eigrp_process_id: MPLS_VPNV4
 eigrp_as_number: 1
 

@@ -1,7 +1,8 @@
 ---
 
-anycast_gateway_mac: 0002.0002.0002
+anycast_gateway_mac: 1ee7.dead.beef
 
+bgp_as_number: 65500
 vxlan_asn: 65000
 
 vrf_l3vni:
@@ -11,16 +12,20 @@ vrf_l3vni:
    vni_id: 300001
    vlan_id: 3001
    rd: auto
-   rt_import: "{{ vxlan_asn }}:3001"
-   rt_export: "{{ vxlan_asn }}:3001"
+   vxlan_rt_import: "{{ vxlan_asn }}:3001"
+   vxlan_rt_export: "{{ vxlan_asn }}:3001"
+   mpls_rt_import: "{{ bgp_as_number }}:3001"
+   mpls_rt_export: "{{ bgp_as_number }}:3001"
  - name: evpn-tenant-2
    afi: ipv4
    safi: unicast
    vni_id: 300002
    vlan_id: 3002
    rd: auto
-   rt_import: "{{ vxlan_asn }}:3002"
-   rt_export: "{{ vxlan_asn }}:3002"
+   vxlan_rt_import: "{{ vxlan_asn }}:3002"
+   vxlan_rt_export: "{{ vxlan_asn }}:3002"
+   mpls_rt_import: "{{ bgp_as_number }}:3002"
+   mpls_rt_export: "{{ bgp_as_number }}:3002"
 
 vlan_l2vni:
  - vlan_id: 101
