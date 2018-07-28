@@ -22,7 +22,7 @@
 - name : Import EVPN Routes Into VPNV4
   ios_config:
     lines:
-      - "import l2vpn evpn"
+      - "import l2vpn evpn re-originate stitching-rt"
     parents:
       - "router bgp {{ bgp_as_number }}"
       - "address-family vpnv4 unicast"
