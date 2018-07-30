@@ -4,7 +4,9 @@ anycast_gateway_mac: 1ee7.dead.beef
 
 bgp_as_number: 65500
 vxlan_asn: 65000
+bgp_max_paths: 2
 
+# ip_address only used by ASRs/borderPE.  Not used in VXLAN L3VNI leafs
 vrf_l3vni:
  - name: evpn-tenant-1
    afi: ipv4
@@ -16,6 +18,8 @@ vrf_l3vni:
    vxlan_rt_export: "{{ vxlan_asn }}:3001"
    mpls_rt_import: "{{ bgp_as_number }}:3001"
    mpls_rt_export: "{{ bgp_as_number }}:3001"
+   ip_address: 1.0.0.1
+   ip_netmask: 255.255.255.0
  - name: evpn-tenant-2
    afi: ipv4
    safi: unicast
@@ -26,6 +30,8 @@ vrf_l3vni:
    vxlan_rt_export: "{{ vxlan_asn }}:3002"
    mpls_rt_import: "{{ bgp_as_number }}:3002"
    mpls_rt_export: "{{ bgp_as_number }}:3002"
+   ip_address: 1.0.0.1
+   ip_netmask: 255.255.255.0
 
 vlan_l2vni:
  - vlan_id: 101

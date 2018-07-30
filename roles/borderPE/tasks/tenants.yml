@@ -39,12 +39,14 @@
   ios_l3_interface:
     name: "BDI{{ item.vlan_id }}"
     state: present
+  with_items:
+    - "{{ vrf_l3vni }}"
 
 - name : Assign VRF and IP Address to Bridge Domain Interface
   ios_config:
     lines:
       - "vrf forwarding {{ item.name }}"
-      - "ip address {{ item.ip_address}}"
+      - "ip address {{ item.ip_address}} {{ item.ip_netmask }}"
       - "encapsulation dot1Q {{ item.vlan_id }}"
       - "no shutdown"
     parents:
