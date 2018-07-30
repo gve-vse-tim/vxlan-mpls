@@ -3,6 +3,10 @@
   import_tasks: underlay.yml
   tags: borderPE_underlay
 
+- name : VRF Tenant configuration
+  import_tasks: tenants.yml
+  tags: borderPE_tenants
+
 - name : VXLAN fabric interface and control plane configuration
   import_tasks: vxlan.yml
   tags: borderPE_vxlan
@@ -11,6 +15,3 @@
   import_tasks: mpls.yml
   tags: borderPE_mpls
 
-- name : VRF Tenant configuration
-  import_tasks: tenants.yml
-  tags: borderPE_tenants
