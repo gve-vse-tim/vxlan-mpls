@@ -6,13 +6,24 @@
     state: present
   with_items: "{{ vrf_l3vni }}"
 
-- name: Assign AFI and RTs to VRF Context
+- name: Assign AFI to VRF Context
   nxos_vrf_af:
     vrf: "{{ item.name }}"
     afi: "{{ item.afi }}"
-    route_target_both_auto_evpn: true
+    route_target_both_auto_evpn: false
     state: present
   with_items: "{{ vrf_l3vni }}"
+
+- name: Add RT import/exports to VRF Context
+  nxos_config:
+    lines:
+      - route-target import {{ item.vxlan_rt_import }} 
+      - route-target export {{ item.vxlan_rt_export }}
+      - route-target import {{ item.vxlan_rt_import }} evpn
+      - route-target export {{ item.vxlan_rt_export }} evpn
+    parents:
+      - vrf context {{ item.name }}
+      - address-family {{ item.afi }} unicast
 
 - name: Create L3VNI VLAN for each VRF
   nxos_vlan:
