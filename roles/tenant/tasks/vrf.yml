@@ -24,6 +24,7 @@
     parents:
       - vrf context {{ item.name }}
       - address-family {{ item.afi }} unicast
+  with_items: "{{ vrf_l3vni }}"
 
 - name: Create L3VNI VLAN for each VRF
   nxos_vlan:
