@@ -1,0 +1,22 @@
+- name : Edge Interfaces - Physical Configuration
+  nxos_interface:
+    interface: "{{ item.interface }}"
+    mode: "{{ item.mode }}"
+    mtu: "{{ item.mtu }}"
+    admin_state: up
+    state: present
+  with_items: 
+    - "{{ edge_interfaces }}"
+
+- name : Edge Interfaces - Layer 2 Access Configuration
+  nxos_l2_interface:
+    name: "{{ item.interface }}"
+    mode: "{{ item.type }}"
+    access_vlan: "{{ item.vlan }}"
+    state: present
+  when: 
+    - item.mode == "layer2"
+    - item.type == "access"
+  with_items:
+    - "{{ edge_interfaces }}"
+

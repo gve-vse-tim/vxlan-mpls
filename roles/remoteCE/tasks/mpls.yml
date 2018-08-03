@@ -11,7 +11,6 @@
   when: 
     - item.afi == "vpnv4"
     - item.safi == "unicast"
-    - item.source == "all" or item.source == inventory_hostname
 
 - name : Create VPNV4 Unicast Address Family
   ios_config:
@@ -23,7 +22,7 @@
 - name : Import EVPN Routes Into VPNV4
   ios_config:
     lines:
-      - "import l2vpn evpn re-originate stitching-rt"
+      - "import l2vpn evpn"
     parents:
       - "router bgp {{ bgp_as_number }}"
       - "address-family vpnv4 unicast"
@@ -42,7 +41,6 @@
   when: 
     - item.afi == "vpnv4"
     - item.safi == "unicast"
-    - item.source == "all" or item.source == inventory_hostname
 
 - name : Configure MPLS transport on interfaces
   ios_config:

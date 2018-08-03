@@ -105,8 +105,3 @@
     host_reachability: "true"
     source_interface: Loopback0
     state: present
-
-
-
-
-

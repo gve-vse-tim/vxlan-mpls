@@ -1,0 +1,3 @@
+- name: (NXOS) Configure edge interfaces for end host/switch connectivity
+  import_tasks: local.yml
+  tags: edge_local

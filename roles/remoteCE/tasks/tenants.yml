@@ -1,0 +1,20 @@
+- name : "Create Tenant VRFs"
+  ios_vrf:
+    name: "{{ item.name }}"
+    rd: "{{ router_id }}:{{ item.vlan_id }}"
+    state: present
+  with_items:
+    - "{{ vrf_l3vni }}"
+  
+- name : "Add Route Target Info to Tenant VRF"
+  ios_config:
+    lines:
+      - "route-target import {{ item.rt_import }}"
+      - "route-target export {{ item.rt_export }}"
+      - "route-target import {{ item.rt_import }} stitching"
+      - "route-target export {{ item.rt_export }} stitching"
+    parents:
+      - "vrf definition {{ item.name }}"
+      - "address-family {{ item.afi }} "
+  with_items:
+    - "{{ vrf_l3vni }}"

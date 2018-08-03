@@ -15,3 +15,9 @@
   ios_config:
     lines:
       - "ip scp server enable"
+
+# Enable CDP
+- name : (IOS) Enable CDP service
+  ios_config:
+    lines:
+      - "cdp run"

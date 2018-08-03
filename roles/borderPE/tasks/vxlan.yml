@@ -23,7 +23,7 @@
 - name : Import VPNV4 Routes Into EVPN
   ios_config:
     lines:
-      - "import vpnv4 unicast"
+      - "import vpnv4 unicast re-originate"
     parents:
       - "router bgp {{ bgp_as_number }}"
       - "address-family l2vpn evpn"
@@ -42,10 +42,30 @@
     - item.afi == "l2vpn"
     - item.safi == "evpn"
 
+- name : Define IPV4 Unicast AF/SAFI for each VRF
+  ios_config:
+    lines:
+      - "address-family ipv4 vrf {{ item.name }}"
+    parents:
+      - "router bgp {{ bgp_as_number }}"
+  with_items:
+    - "{{ vrf_l3vni }}"
+
+- name : Import L2VPN EVPN routes into IPV4 Unicast
+  ios_config:
+    lines:
+      - "advertise l2vpn evpn"
+      - "maximum-paths {{ bgp_max_paths }}"
+    parents:
+      - "router bgp {{ bgp_as_number }}"
+      - "address-family ipv4 vrf {{ item.name }}"
+  with_items:
+    - "{{ vrf_l3vni }}"
+
 - name : Configure the VXLAN UDP Port Value
   ios_config:
     lines:
-      - "vxlan udp port 0xBEEF"
+      - "vxlan udp port 4789"
 
 - name : Create the NVE Interface
   ios_interface:
@@ -64,8 +84,9 @@
     - "{{ loopbacks }}"
   when: item.transport == "vxlan"
 
+# By default, IOS-XE only uses L3 info for ECMP hashing
 - name : Change ECMP Hashing Algorithm to Include Layer 4 Ports
   ios_config:
     lines:
-      - "ip cef load-sharing algorithm include-ports"
+      - "ip cef load-sharing algorithm include-ports source"
 

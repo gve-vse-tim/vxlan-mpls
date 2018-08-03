@@ -72,6 +72,7 @@
     interface: "{{ item.interface }}"
     sparse: true
     state: present
+  when: item.role != "borderPE"
   with_items: "{{ underlay_interfaces }}"
 
 - name: CONFIGURE BGP ASN AND ROUTER ID
@@ -89,14 +90,59 @@
     state: present
   with_items: "{{ bgp_neighbors }}"
 
-- name: CONFIGURE L2VPN EVPN ADDRESS FAMILY FOR BGP NEIGHBORS
+- name: Enable L2VPN EVPN AFI/SAFI to BGP Neighbores
   nxos_bgp_neighbor_af:
     asn: "{{ vxlan_asn }}"
     neighbor: "{{ item.neighbor }}"
     afi: l2vpn
     safi: evpn
     send_community: both
-    route_reflector_client: "true"
     state: present
   with_items: "{{ bgp_neighbors }}"
 
+- name: Configure L2VPN EVPN Route Reflectors for Fabric peers
+  nxos_bgp_neighbor_af:
+    asn: "{{ vxlan_asn }}"
+    neighbor: "{{ item.neighbor }}"
+    afi: l2vpn
+    safi: evpn
+    route_reflector_client: "true"
+    state: present
+  when: item.type == 'ibgp'
+  with_items:
+    - "{{ bgp_neighbors }}"
+
+- name: Configure eBGP multi-hop for eBGP peers
+  nxos_config:
+    lines:
+      - "ebgp-multihop 3"
+    parents:
+      - "router bgp {{ vxlan_asn }}"
+      - "neighbor {{ item.neighbor }}"
+  when: item.type == 'ebgp'
+  with_items:
+    - "{{ bgp_neighbors }}"
+
+- name: Create Next Hop Unchanged Route Map
+  nxos_config:
+    lines:
+      - "route-map set-next-hop-unchanged permit 10"
+
+- name: Add Next Hop Unchanged Setting to Route Map
+  nxos_config:
+    lines:
+      - "set ip next-hop unchanged"
+    parents:
+      - "route-map set-next-hop-unchanged permit 10"
+
+- name: Set Next Hop Unchanged for eBGP L2VPN EVPN Peers
+  nxos_config:
+    lines:
+      - "route-map set-next-hop-unchanged out"
+    parents:
+      - "router bgp {{ vxlan_asn }}"
+      - "neighbor {{ item.neighbor }}"
+      - "address-family l2vpn evpn"
+  when: item.type == 'ebgp'
+  with_items:
+    - "{{ bgp_neighbors }}"

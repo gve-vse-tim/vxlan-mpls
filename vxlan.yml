@@ -17,6 +17,8 @@
       tags: leaf
     - role: tenant
       tags: tenant
+    - role: edge
+      tags: edge
     - role: backup
       tags: backup
 

@@ -7,7 +7,7 @@
     name: "{{ item.interface }}"
     mtu: 9216
     state: up
-    delay: 30
+    delay: 5
   with_items: 
     - "{{ underlay_interfaces }}"
 
@@ -16,15 +16,6 @@
     name: "{{ item.interface }}"
     ipv4: "{{ item.addr }}/{{ item.mask }}"
     state: present
-  with_items:
-    - "{{ underlay_interfaces }}"
-
-- name : Underlay P2P Interfaces - Enable CDP
-  ios_config:
-    lines:
-      - "cdp enable"
-    parents:
-      - "interface {{ item.interface }}"
   with_items:
     - "{{ underlay_interfaces }}"
 
@@ -46,39 +37,6 @@
 ###
 ###  This is where Ansible and IOS/IOS-XE experiences serious FAIL
 ###
-
-# VXLAN Underlay IGP
-- name : Define OSPF process
-  ios_config:
-    lines: 
-      - "router ospf {{ ospf_process_id }}"
-
-- name : Set OSPF router ID
-  ios_config:
-    lines:
-      - "router-id {{ router_id }}"
-    parents:
-      - "router ospf {{ ospf_process_id }}"
-
-- name : Bind interfaces to OSPF process
-  ios_config:
-    lines:
-      - "ip ospf {{ ospf_process_id }} area {{ ospf_area }}"
-    parents:
-      - "interface {{ item.interface }}"
-  with_items: 
-    - "{{ loopbacks }}"
-    - "{{ underlay_interfaces }}"
-  when: item.protocol == "ospf"
-
-- name : Underlay P2P Interfaces - OSPF P2P Network Type
-  ios_config:
-    lines: ip ospf network point-to-point
-    parents:
-      - "interface {{ item.interface }}"
-  with_items:
-    - "{{ underlay_interfaces }}"
-  when: item.protocol == "ospf"
 
 # MPLS Underlay IGP (EIGRP for simplicity given this design)
 - name : Define EIGRP process
@@ -127,4 +85,3 @@
       - "no bgp default ipv4-unicast"
     parents:
       - "router bgp {{ bgp_as_number }}"
-

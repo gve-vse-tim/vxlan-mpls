@@ -1,4 +1,4 @@
-- name : "Create Tenant VRFs"
+- name : Create Tenant VRFs
   ios_vrf:
     name: "{{ item.name }}"
     rd: "{{ router_id }}:{{ item.vlan_id }}"
@@ -6,16 +6,60 @@
   with_items:
     - "{{ vrf_l3vni }}"
   
-- name : "Add Route Target Info to Tenant VRF"
+- name : Add Route Target Info to Tenant VRF
   ios_config:
     lines:
-      - "route-target import {{ item.rt_import }}"
-      - "route-target export {{ item.rt_export }}"
-      - "route-target import {{ item.rt_import }} stitching"
-      - "route-target export {{ item.rt_export }} stitching"
+      - "route-target import {{ item.mpls_rt_import }}"
+      - "route-target export {{ item.mpls_rt_export }}"
+      - "route-target import {{ item.vxlan_rt_import }} stitching"
+      - "route-target export {{ item.vxlan_rt_export }} stitching"
     parents:
       - "vrf definition {{ item.name }}"
       - "address-family {{ item.afi }} "
+  with_items:
+    - "{{ vrf_l3vni }}"
+
+- name : Create Bridge Domains for L3VNI
+  ios_config:
+    lines:
+      - "bridge-domain {{ item.vlan_id }}"
+  with_items:
+    - "{{ vrf_l3vni }}"
+
+- name : Assign L3VNI to Bridge Domain
+  ios_config:
+    lines:
+      - "member vni {{ item.vni_id }}"
+    parents:
+      - "bridge-domain {{ item.vlan_id }}"
+  with_items:
+    - "{{ vrf_l3vni }}"
+
+- name : Create Bridge Domain L3 Interface
+  ios_l3_interface:
+    name: "BDI{{ item.vlan_id }}"
+    state: present
+  with_items:
+    - "{{ vrf_l3vni }}"
+
+- name : Assign VRF and IP Address to Bridge Domain Interface
+  ios_config:
+    lines:
+      - "vrf forwarding {{ item.name }}"
+      - "ip address {{ item.ip_address}} {{ item.ip_netmask }}"
+      - "encapsulation dot1Q {{ item.vlan_id }}"
+      - "no shutdown"
+    parents:
+      - "interface BDI{{ item.vlan_id }}"
+  with_items:
+    - "{{ vrf_l3vni }}"
+
+- name : Register L3VNI VRF with VTEP NVE Interface
+  ios_config:
+    lines:
+      - "member vni {{ item.vni_id }} vrf {{ item.name }}"
+    parents:
+      - "interface nve1"
   with_items:
     - "{{ vrf_l3vni }}"
 
