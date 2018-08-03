@@ -22,25 +22,25 @@ loopbacks:
     protocol: eigrp
     transport: mpls
 
-# Links to VXLAN spine-1 (Gi14) and spine-2 (Gi15)
-# Links to MPLS remotePE-1 (Gi11) and remotePE-2 (Gi12)
+# Links to VXLAN spine-1 (Gi7) and spine-2 (Gi8)
+# Links to MPLS remotePE-1 (Gi2) and remotePE-2 (Gi3)
 underlay_interfaces:
-  - interface: GigabitEthernet14
+  - interface: GigabitEthernet7
     addr: 192.168.112.2
     mask: 30
     protocol: ospf
     transport: vxlan
-  - interface: GigabitEthernet15
+  - interface: GigabitEthernet8
     addr: 192.168.122.2
     mask: 30
     protocol: ospf
     transport: vxlan
-  - interface: GigabitEthernet11
+  - interface: GigabitEthernet2
     addr: 192.168.221.1
     mask: 30
     protocol: eigrp
     transport: mpls
-  - interface: GigabitEthernet12
+  - interface: GigabitEthernet3
     addr: 192.168.222.1
     mask: 30
     protocol: eigrp

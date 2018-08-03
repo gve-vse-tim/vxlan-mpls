@@ -20,11 +20,11 @@ underlay_interfaces:
     mask: 30
     role: leaf
   # BorderPE Links
-  - interface: Ethernet1/8
+  - interface: Ethernet1/7
     addr: 192.168.111.1
     mask: 30
     role: borderPE
-  - interface: Ethernet1/9
+  - interface: Ethernet1/8
     addr: 192.168.112.1
     mask: 30
     role: borderPE

@@ -10,15 +10,21 @@ loopbacks:
     protocol: eigrp
     transport: mpls
 
-# Links to MPLS borderPE-1 (Gi11) and borderPE-2 (Gi12)
+# Links to MPLS borderPE-1 (Gi2) and borderPE-2 (Gi3)
+# Link for MPLS between remotePE (Gi4)
 underlay_interfaces:
-  - interface: GigabitEthernet11
+  - interface: GigabitEthernet2
     addr: 192.168.212.2
     mask: 30
     protocol: eigrp
     transport: mpls
-  - interface: GigabitEthernet12
+  - interface: GigabitEthernet3
     addr: 192.168.222.2
+    mask: 30
+    protocol: eigrp
+    transport: mpls
+  - interface: GigabitEthernet4
+    addr: 192.168.202.2
     mask: 30
     protocol: eigrp
     transport: mpls
