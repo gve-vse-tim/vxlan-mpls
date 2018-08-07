@@ -29,5 +29,6 @@ underlay_interfaces:
     protocol: eigrp
     transport: mpls
 
+# The Router SVI IP Address for every VRF
 mpls_pe_address: 12.0.0.1
 mpls_pe_netmask: 255.255.255.0
