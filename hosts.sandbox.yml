@@ -9,7 +9,7 @@ all:
       children:
         borderPE:
           hosts:
-            ASR-DC-1:
+            borderPE-1:
               ansible_host: 172.16.30.63
               ansible_network_os: ios
               ansible_user: cisco
@@ -25,7 +25,7 @@ all:
                 port: 22
                 timeout: 20
                 host: 172.16.30.63
-            ASR-DC-2:
+            borderPE-2:
               ansible_host: 172.16.30.64
               ansible_network_os: ios
               ansible_user: cisco
@@ -43,7 +43,7 @@ all:
                 host: 172.16.30.64
         remotePE:
           hosts:
-            ASR-TP-1:
+            remotePE-1:
               ansible_host: 172.16.30.61
               ansible_network_os: ios
               ansible_user: cisco
@@ -59,7 +59,7 @@ all:
                 port: 22
                 timeout: 20
                 host: 172.16.30.61
-            ASR-TP-2:
+            remotePE-2:
               ansible_host: 172.16.30.62
               ansible_network_os: ios
               ansible_user: cisco
