@@ -34,10 +34,10 @@ bgp_neighbors:
     update_source: Loopback2
     afi: vpnv4
     safi: unicast
-    source: ASR-DC-1
+    source: borderPE-1
   - remote_as: 65500
     neighbor: 192.168.3.111
     update_source: Loopback2
     afi: vpnv4
     safi: unicast
-    source: ASR-DC-2
+    source: borderPE-2
