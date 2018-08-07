@@ -19,15 +19,7 @@
     parents:
       - "router bgp {{ bgp_as_number }}"
 
-- name : Import EVPN Routes Into VPNV4
-  ios_config:
-    lines:
-      - "import l2vpn evpn"
-    parents:
-      - "router bgp {{ bgp_as_number }}"
-      - "address-family vpnv4 unicast"
-
-- name : Enable Both Communities for all L2VPN EVPN Neighbors
+- name : Enable Both Communities for all VPNV4 Unicast Neighbors
   ios_config:
     lines:
       - "neighbor {{ item.neighbor }} activate"
@@ -50,4 +42,5 @@
       - "interface {{ item.interface }}"
   with_items:
     - "{{ underlay_interfaces }}"
-  when: item.transport == "mpls"
+  when: 
+    - item.transport == "mpls"
