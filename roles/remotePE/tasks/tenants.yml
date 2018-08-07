@@ -1,4 +1,4 @@
-- name : "Create Tenant VRFs"
+- name : Create Tenant VRFs
   ios_vrf:
     name: "{{ item.name }}"
     rd: "{{ router_id }}:{{ item.vlan_id }}"
@@ -6,7 +6,7 @@
   with_items:
     - "{{ vrf_l3vni }}"
   
-- name : "Add Route Target Info to Tenant VRF"
+- name : Add Route Target Info to Tenant VRF
   ios_config:
     lines:
       - "route-target import {{ item.mpls_rt_import }}"
