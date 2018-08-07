@@ -28,7 +28,7 @@
       - "router bgp {{ bgp_as_number }}"
       - "address-family vpnv4 unicast"
 
-- name : Enable Both Communities for all L2VPN EVPN Neighbors
+- name : Enable Both Communities for all VPNV4 Unicast Neighbors
   ios_config:
     lines:
       - "neighbor {{ item.neighbor }} activate"
