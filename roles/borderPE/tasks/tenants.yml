@@ -46,7 +46,7 @@
   ios_config:
     lines:
       - "vrf forwarding {{ item.name }}"
-      - "ip address {{ item.ip_address}} {{ item.ip_netmask }}"
+      - "ip address {{ mpls_pe_address }} {{ mpls_pe_netmask }}"
       - "encapsulation dot1Q {{ item.vlan_id }}"
       - "no shutdown"
     parents:

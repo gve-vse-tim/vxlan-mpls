@@ -28,3 +28,6 @@ underlay_interfaces:
     mask: 30
     protocol: eigrp
     transport: mpls
+
+mpls_pe_address: 12.0.0.1
+mpls_pe_netmask: 255.255.255.0

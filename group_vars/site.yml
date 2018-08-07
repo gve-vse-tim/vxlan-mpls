@@ -18,8 +18,6 @@ vrf_l3vni:
    vxlan_rt_export: "{{ vxlan_asn }}:3001"
    mpls_rt_import: "{{ bgp_as_number }}:3001"
    mpls_rt_export: "{{ bgp_as_number }}:3001"
-   ip_address: 1.0.0.1
-   ip_netmask: 255.255.255.0
  - name: evpn-tenant-2
    afi: ipv4
    safi: unicast
@@ -30,8 +28,6 @@ vrf_l3vni:
    vxlan_rt_export: "{{ vxlan_asn }}:3002"
    mpls_rt_import: "{{ bgp_as_number }}:3002"
    mpls_rt_export: "{{ bgp_as_number }}:3002"
-   ip_address: 1.0.0.1
-   ip_netmask: 255.255.255.0
 
 vlan_l2vni:
  - vlan_id: 101
