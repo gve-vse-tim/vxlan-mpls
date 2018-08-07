@@ -9,8 +9,8 @@
 - name : "Add Route Target Info to Tenant VRF"
   ios_config:
     lines:
-      - "route-target import {{ item.rt_import }}"
-      - "route-target export {{ item.rt_export }}"
+      - "route-target import {{ item.mpls_rt_import }}"
+      - "route-target export {{ item.mpls_rt_export }}"
     parents:
       - "vrf definition {{ item.name }}"
       - "address-family {{ item.afi }} "
