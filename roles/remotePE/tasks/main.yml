@@ -3,3 +3,11 @@
   import_tasks: underlay.yml
   tags: remotePE_underlay
 
+- name : VRF Tenant configuration
+  import_tasks: tenants.yml
+  tags: borderPE_tenants
+
+- name : MPLS transport interface and control plane configuration
+  import_tasks: mpls.yml
+  tags: borderPE_mpls
+

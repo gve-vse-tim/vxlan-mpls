@@ -31,3 +31,11 @@
     - role: backup
       tags: backup
 
+- hosts: remotePE
+  roles:
+    - role: common
+      tags: common
+    - role: remotePE
+      tags: remotePE
+    - role: backup
+      tags: backup
