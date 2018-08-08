@@ -2,13 +2,16 @@
 # - point-to-point routed links
 # - routing protocol for underlay reachability
 
+# Even though there's an ios_interface module, Ansible 2.5 has
+# an underlying issues with network_cli connection type
 - name : Underlay P2P Interfaces - Physical Settings
-  ios_interface:
-    name: "{{ item.interface }}"
-    mtu: 9216
-    state: up
-    delay: 30
-  with_items: 
+  ios_config:
+    lines:
+      - "mtu 9216"
+      - "no shutdown"
+    parents:
+      - "interface {{ item.interface }}"
+  with_items:
     - "{{ underlay_interfaces }}"
 
 - name : Underlay P2P Interfaces - IP Addressing
