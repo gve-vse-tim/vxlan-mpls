@@ -45,6 +45,11 @@ underlay_interfaces:
     mask: 30
     protocol: eigrp
     transport: mpls
+  - interface: GigabitEthernet4
+    addr: 192.168.201.2
+    mask: 30
+    protocol: eigrp
+    transport: mpls
 
 # The Router SVI IP Address for every VRF
 mpls_pe_address: 2.0.0.1
