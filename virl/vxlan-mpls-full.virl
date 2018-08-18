@@ -381,7 +381,7 @@ end
         <extensions>
             <entry key="static_ip" type="String">172.16.30.64</entry>
             <entry key="config" type="String">!
-! Last configuration change at 16:17:38 UTC Fri Aug 17 2018 by cisco
+! Last configuration change at 21:16:51 UTC Fri Aug 17 2018 by cisco
 !
 version 16.8
 service timestamps debug datetime msec
@@ -569,9 +569,11 @@ interface GigabitEthernet3
  no mop sysid
 !
 interface GigabitEthernet4
- no ip address
- shutdown
+ mtu 9216
+ ip address 192.168.201.2 255.255.255.252
  negotiation auto
+ cdp enable
+ mpls ip
  no mop enabled
  no mop sysid
 !
@@ -640,6 +642,7 @@ router eigrp MPLS_VPNV4
   topology base
   exit-af-topology
   network 192.168.3.112 0.0.0.0
+  network 192.168.201.2 0.0.0.0
   network 192.168.221.1 0.0.0.0
   network 192.168.222.1 0.0.0.0
   eigrp router-id 192.168.3.12
@@ -748,8 +751,8 @@ end
         <extensions>
             <entry key="static_ip" type="String">172.16.30.65</entry>
             <entry key="config" type="String">!Command: show running-config
-!Running configuration last done at: Fri Aug 17 16:10:46 2018
-!Time: Fri Aug 17 16:37:31 2018
+!Running configuration last done at: Fri Aug 17 20:08:48 2018
+!Time: Fri Aug 17 21:23:59 2018
 
 version 9.2(1) Bios:version  
 hostname spine-1
@@ -1136,8 +1139,8 @@ router bgp 65000
         <extensions>
             <entry key="static_ip" type="String">172.16.30.66</entry>
             <entry key="config" type="String">!Command: show running-config
-!Running configuration last done at: Fri Aug 17 16:10:47 2018
-!Time: Fri Aug 17 16:37:32 2018
+!Running configuration last done at: Fri Aug 17 20:09:13 2018
+!Time: Fri Aug 17 21:24:01 2018
 
 version 9.2(1) Bios:version  
 hostname spine-2
@@ -1524,8 +1527,8 @@ router bgp 65000
         <extensions>
             <entry key="static_ip" type="String">172.16.30.67</entry>
             <entry key="config" type="String">!Command: show running-config
-!Running configuration last done at: Fri Aug 17 16:14:38 2018
-!Time: Fri Aug 17 16:37:33 2018
+!Running configuration last done at: Fri Aug 17 20:05:15 2018
+!Time: Fri Aug 17 21:24:02 2018
 
 version 9.2(1) Bios:version  
 hostname leaf-1
@@ -2003,8 +2006,8 @@ evpn
         <extensions>
             <entry key="static_ip" type="String">172.16.30.68</entry>
             <entry key="config" type="String">!Command: show running-config
-!Running configuration last done at: Fri Aug 17 16:14:38 2018
-!Time: Fri Aug 17 16:37:32 2018
+!Running configuration last done at: Fri Aug 17 19:53:46 2018
+!Time: Fri Aug 17 21:24:01 2018
 
 version 9.2(1) Bios:version  
 hostname leaf-2
@@ -2482,7 +2485,7 @@ evpn
         <extensions>
             <entry key="static_ip" type="String">172.16.30.61</entry>
             <entry key="config" type="String">!
-! Last configuration change at 16:19:06 UTC Fri Aug 17 2018 by cisco
+! Last configuration change at 21:18:02 UTC Fri Aug 17 2018 by cisco
 !
 version 16.8
 service timestamps debug datetime msec
