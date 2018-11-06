@@ -768,7 +768,7 @@ interface mgmt0
   vrf member management
 line console
 line vty
-boot nxos bootflash:nxos.7.0.3.I6.1.bin
+boot nxos bootflash:nxos.9.2.1.bin
 
 </entry>
             <entry key="static_ip" type="String">172.16.30.65</entry>
@@ -1013,7 +1013,7 @@ interface mgmt0
   vrf member management
 line console
 line vty
-boot nxos bootflash:nxos.7.0.3.I6.1.bin
+boot nxos bootflash:nxos.9.2.1.bin
 
 </entry>
             <entry key="static_ip" type="String">172.16.30.66</entry>
@@ -1258,7 +1258,7 @@ interface mgmt0
   vrf member management
 line console
 line vty
-boot nxos bootflash:nxos.7.0.3.I6.1.bin
+boot nxos bootflash:nxos.9.2.1.bin
 
 </entry>
             <entry key="static_ip" type="String">172.16.30.67</entry>
@@ -1503,7 +1503,7 @@ interface mgmt0
   vrf member management
 line console
 line vty
-boot nxos bootflash:nxos.7.0.3.I6.1.bin
+boot nxos bootflash:nxos.9.2.1.bin
 
 </entry>
             <entry key="static_ip" type="String">172.16.30.68</entry>
