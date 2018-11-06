@@ -535,7 +535,7 @@ end
         <interface id="5" name="GigabitEthernet7"/>
         <interface id="6" name="GigabitEthernet8"/>
     </node>
-    <node name="spine-1" type="SIMPLE" subtype="NX-OSv 9000" location="446,484" vmFlavor="NX-OSv 9000-1 [3cc2af6d-704a-4fb4-b656-87a6e673a42a]">
+    <node name="spine-1" type="SIMPLE" subtype="NX-OSv 9000" location="446,484" vmFlavor="NX-OSv 9000 [f5fe6a85-2a85-4a79-aa6e-cbf055449281]">
         <extensions>
             <entry key="config" type="String">!Command: show running-config
 !Time: Mon Jun 25 14:42:00 2018
@@ -780,7 +780,7 @@ boot nxos bootflash:nxos.7.0.3.I6.1.bin
         <interface id="6" name="Ethernet1/7"/>
         <interface id="7" name="Ethernet1/8"/>
     </node>
-    <node name="spine-2" type="SIMPLE" subtype="NX-OSv 9000" location="623,484" vmFlavor="NX-OSv 9000-1 [3cc2af6d-704a-4fb4-b656-87a6e673a42a]">
+    <node name="spine-2" type="SIMPLE" subtype="NX-OSv 9000" location="623,484" vmFlavor="NX-OSv 9000 [f5fe6a85-2a85-4a79-aa6e-cbf055449281]">
         <extensions>
             <entry key="config" type="String">!Command: show running-config
 !Time: Mon Jun 25 14:42:00 2018
@@ -1025,7 +1025,7 @@ boot nxos bootflash:nxos.7.0.3.I6.1.bin
         <interface id="6" name="Ethernet1/7"/>
         <interface id="7" name="Ethernet1/8"/>
     </node>
-    <node name="leaf-1" type="SIMPLE" subtype="NX-OSv 9000" location="448,636" vmFlavor="NX-OSv 9000-1 [3cc2af6d-704a-4fb4-b656-87a6e673a42a]">
+    <node name="leaf-1" type="SIMPLE" subtype="NX-OSv 9000" location="448,636" vmFlavor="NX-OSv 9000 [f5fe6a85-2a85-4a79-aa6e-cbf055449281]">
         <extensions>
             <entry key="config" type="String">!Command: show running-config
 !Time: Mon Jun 25 14:42:01 2018
@@ -1270,7 +1270,7 @@ boot nxos bootflash:nxos.7.0.3.I6.1.bin
         <interface id="7" name="Ethernet1/8"/>
         <interface id="8" name="Ethernet1/9"/>
     </node>
-    <node name="leaf-2" type="SIMPLE" subtype="NX-OSv 9000" location="623,636" vmFlavor="NX-OSv 9000-1 [3cc2af6d-704a-4fb4-b656-87a6e673a42a]">
+    <node name="leaf-2" type="SIMPLE" subtype="NX-OSv 9000" location="623,636" vmFlavor="NX-OSv 9000 [f5fe6a85-2a85-4a79-aa6e-cbf055449281]">
         <extensions>
             <entry key="config" type="String">!Command: show running-config
 !Time: Mon Jun 25 14:42:00 2018
